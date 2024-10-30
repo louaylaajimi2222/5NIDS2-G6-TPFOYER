@@ -1,40 +1,62 @@
 package tn.esprit.tpfoyer.service;
 
-
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.tpfoyer.entity.Etudiant;
 import tn.esprit.tpfoyer.repository.EtudiantRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class EtudiantServiceImpl implements IEtudiantService {
 
+    private final EtudiantRepository etudiantRepository;
 
-    EtudiantRepository etudiantRepository;
-
+    @Override
     public List<Etudiant> retrieveAllEtudiants() {
         return etudiantRepository.findAll();
     }
+
+    @Override
     public Etudiant retrieveEtudiant(Long etudiantId) {
-        return etudiantRepository.findById(etudiantId).get();
+        Optional<Etudiant> etudiant = etudiantRepository.findById(etudiantId);
+        if (etudiant.isPresent()) {
+            return etudiant.get();
+        } else {
+            throw new RuntimeException("Etudiant not found with ID: " + etudiantId);
+        }
     }
-    public Etudiant addEtudiant(Etudiant c) {
-        return etudiantRepository.save(c);
+
+    @Override
+    public Etudiant addEtudiant(Etudiant etudiant) {
+        return etudiantRepository.save(etudiant);
     }
-    public Etudiant modifyEtudiant(Etudiant c) {
-        return etudiantRepository.save(c);
+
+    @Override
+    public Etudiant modifyEtudiant(Etudiant etudiant) {
+        if (etudiantRepository.existsById(etudiant.getIdEtudiant())) {
+            return etudiantRepository.save(etudiant);
+        } else {
+            throw new RuntimeException("Etudiant not found with ID: " + etudiant.getIdEtudiant());
+        }
     }
+
+    @Override
     public void removeEtudiant(Long etudiantId) {
-        etudiantRepository.deleteById(etudiantId);
+        if (etudiantRepository.existsById(etudiantId)) {
+            etudiantRepository.deleteById(etudiantId);
+        } else {
+            throw new RuntimeException("Etudiant not found with ID: " + etudiantId);
+        }
     }
-    public Etudiant recupererEtudiantParCin(long cin)
-    {
+
+    @Override
+    public Etudiant recupererEtudiantParCin(long cin) {
         return etudiantRepository.findEtudiantByCinEtudiant(cin);
     }
 
-
+    // Advanced Functionality 1: Retrieve students by school and birthdate
 
 }
