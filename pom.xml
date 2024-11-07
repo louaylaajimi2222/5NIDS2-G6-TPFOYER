@@ -50,20 +50,10 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.1.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-        </dependency>
+
 
 
     </dependencies>
-
-    <distributionManagement>
-        <repository>
-            <id>deploymentRepo</id>
-        <url>http://192.168.50.4:8081/repository/5nids2-G6-tp_foyer/</url>
-        </repository>
-    </distributionManagement>
 
     <build>
         <plugins>
