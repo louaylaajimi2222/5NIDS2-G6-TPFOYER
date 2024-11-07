@@ -84,7 +84,6 @@ pipeline {
                 // Remove all stopped containers, unused images, and dangling images
                 sh '''
                     docker compose down
-                    docker system prune -af
                 '''
             }
         }
