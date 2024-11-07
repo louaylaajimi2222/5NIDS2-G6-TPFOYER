@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout GIT') {
             steps {
                 git branch: 'ZarouiAhmed-5NIDS2-G6',
-                url: 'https://github.com/ahmedzaroui1/5NIDS2-G6-TPFOYER.git'            
+                url: 'https://github.com/louaylaajimi2222/5NIDS2-G6-TPFOYER.git'            
             }
         }
         stage('Maven Clean') {
