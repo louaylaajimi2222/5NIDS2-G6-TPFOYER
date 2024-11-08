@@ -81,10 +81,7 @@ pipeline {
         }
         stage('Clean Up Old Containers and Images') {
             steps {
-                // Remove all stopped containers, unused images, and dangling images
-                sh '''
-                    docker compose down
-                '''
+                 sh 'docker compose down'
             }
         }
 
