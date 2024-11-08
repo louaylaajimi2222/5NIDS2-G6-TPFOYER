@@ -69,7 +69,6 @@ pipeline {
                 sh "docker build -t ahmedzaroui-5nids2-g6-tpfoyer ."
             }
         }
-        
         stage('Tagging Docker Image'){
             steps{
                 sh "docker tag ahmedzaroui-5nids2-g6-tpfoyer:latest zarouiahmeed/ahmedzaroui-5nids2-g6-tpfoyer:latest"
@@ -91,7 +90,13 @@ pipeline {
 
         stage('Deploy with Docker Compose') {
             steps {
-                 script {
+                // Start the application and MySQL database using Docker Compose
+                sh 'docker compose up -d'
+            }
+        }
+                stage('Deploy with Docker Compose') {
+                    steps {
+                        script {
                             // Stop existing containers
                             sh 'docker compose down'
 
@@ -111,12 +116,8 @@ pipeline {
 
                             // Verify deployment
                             sh 'docker compose ps'
-            }
-
-        }
-
                         }
-
-
+                    }
+                }
     }
 }
