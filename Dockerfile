@@ -5,10 +5,10 @@ FROM openjdk:17-jdk-alpine
 WORKDIR /app
 
 # Copy the JAR file from the target directory into the container
-COPY target/tp-foyer-1.0.jar /app/tp-foyer.jar
+COPY ./target/tp-foyer-1.0.0.jar app.jar
 
 # Expose the port on which the application will run
-EXPOSE 8080
+EXPOSE 8089
 
 # Command to run the JAR file
 CMD ["java", "-jar", "tp-foyer.jar"]
