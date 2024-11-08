@@ -28,7 +28,7 @@ stage('Build') {
     steps {
         script {
             echo "Building the Maven project..."
-            sh 'mvn clean package -X'  // Use -X for debug output
+            sh 'mvn clean package'  // Use -X for debug output
             // Check if the JAR file exists in the target directory
             sh 'ls -l target/'
         }
@@ -86,17 +86,5 @@ stage('Build') {
         }
     }
 
-    post {
-        always {
-            // Archive test results and JaCoCo reports
-            archiveArtifacts artifacts: '**/target/*.xml', allowEmptyArchive: true
-            junit '**/target/test-*.xml'  // Archive JUnit results if they exist
-        }
-        success {
-            echo 'Pipeline successfully completed!'
-        }
-        failure {
-            echo 'Pipeline failed. Please check the logs for details.'
-        }
-    }
+
 }
