@@ -31,6 +31,7 @@ stage('Build') {
             sh 'mvn clean package'  // Use -X for debug output
             // Check if the JAR file exists in the target directory
             sh 'ls -l target/'
+             sh 'mvn install'
         }
     }
 }
