@@ -59,7 +59,7 @@ pipeline {
         stage('Docker Build') {
             steps {
 
-            dir('target') {
+
                 script {
                     echo 'Checking JAR file presence in target directory...'
                     sh 'pwd'
@@ -69,7 +69,7 @@ pipeline {
                     // Ensure you're in the correct directory containing the Dockerfile
                     sh "docker build -t khaledbaccouche19/baccouchekhaled-5nids2-g6:latest ."
                 }
-            }
+
             }
         }
 
