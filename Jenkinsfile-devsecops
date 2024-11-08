@@ -69,6 +69,25 @@ pipeline {
                 sh "docker build -t ahmedzaroui-5nids2-g6-tpfoyer ."
             }
         }
+        stage('Scan Docker Image for Vulnerabilities') {
+             steps {
+                        script {
+                            // Run Anchore CLI to add the Docker image to Anchore's database
+                            sh "anchore-cli image add ahmedzaroui-5nids2-g6-tpfoyer:latest"
+
+                            // Run the scan for vulnerabilities in the image
+                            def result = sh(script: "anchore-cli image vuln ahmedzaroui-5nids2-g6-tpfoyer:latest all", returnStdout: true).trim()
+                            echo "Anchore CLI scan result: ${result}"
+
+                            // If vulnerabilities are found, fail the build
+                            if (result.contains("Vulnerabilities found")) {
+                                error "Vulnerabilities detected! Failing the build."
+                            } else {
+                                echo "No vulnerabilities found in Docker image."
+                            }
+                        }
+                    }
+                }
         stage('Tagging Docker Image'){
             steps{
                 sh "docker tag ahmedzaroui-5nids2-g6-tpfoyer:latest zarouiahmeed/ahmedzaroui-5nids2-g6-tpfoyer:latest"
