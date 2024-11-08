@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Etudiant {
+public class  Etudiant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
