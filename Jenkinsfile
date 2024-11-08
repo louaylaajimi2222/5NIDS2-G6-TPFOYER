@@ -24,38 +24,16 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build and Test') {
             steps {
                 script {
-                    echo "Building the Maven project..."
+                    echo "Building and testing the Maven project..."
+                    // Run 'package' to build and test, generating the JAR file in the target directory
                     sh 'mvn clean package'
 
                     // Confirm JAR file creation
                     echo 'Checking if the JAR file was created...'
                     sh 'ls -l target/'
-
-                    // Check specifically for the JAR file's existence
-                    sh 'test -f target/tp-foyer-5.0.0.jar || echo "JAR file not found"'
-                }
-            }
-        }
-
-        stage('Run Unit Tests') {
-            steps {
-                script {
-                    try {
-                        // Run unit tests
-                        sh 'mvn clean test'
-
-                        // Generate the JaCoCo report
-                        sh 'mvn jacoco:report'
-
-                        // Ensure Jenkins recognizes the JaCoCo report
-                        jacoco execPattern: 'target/jacoco.exec'
-                    } catch (Exception e) {
-                        currentBuild.result = 'FAILURE'
-                        error "Tests or JaCoCo report generation failed: ${e.message}"
-                    }
                 }
             }
         }
@@ -63,11 +41,8 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    echo 'Checking JAR file presence in target directory...'
-                    sh 'pwd'
-                    sh 'ls -l target/'
-
                     echo 'Building Docker image...'
+                    // Ensure Dockerfile is in the correct location
                     sh "docker build -t ${DOCKER_IMAGE}:${VERSION} ."
                 }
             }
