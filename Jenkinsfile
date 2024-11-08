@@ -27,17 +27,10 @@ environment {
 
         stage('Build') {
             steps {
-
-                    script {
-                        // Print current directory and list files
-                        sh 'pwd'
-                        sh 'ls -la' // List files in the current directory
-
-                        // Change permission to make mvnw executable
-                        sh 'chmod +x ./mvnw'
-                    }
-                    sh './mvnw clean package -DskipTests'
-
+                script {
+                    echo "Building the Maven project..."
+                    sh 'mvn clean package -DskipTests'
+                }
             }
         }
 
@@ -88,4 +81,20 @@ stage('Run Unit Tests') {
                     }
                 }
             }
+
+
+
+    post {
+        always {
+            // Archive test results and JaCoCo reports
+            archiveArtifacts artifacts: '**/target/*.xml', allowEmptyArchive: true
+            junit '**/target/test-*.xml'  // Archive JUnit results if they exist
+        }
+        success {
+            echo 'Pipeline successfully completed!'
+        }
+        failure {
+            echo 'Pipeline failed. Please check the logs for details.'
+        }
+    }
 }
