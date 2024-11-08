@@ -25,16 +25,16 @@ environment {
             }
         }
 
-        stage('Build') {
-            steps {
-                script {
-                    echo "Building the Maven project..."
-                    sh 'mvn clean package'
-                    // Check if the JAR file exists
-                    sh 'ls target/'
-                }
-            }
+stage('Build') {
+    steps {
+        script {
+            echo "Building the Maven project..."
+            sh 'mvn clean package'
+            // Check if the JAR file exists in the target directory
+            sh 'ls target/'
         }
+    }
+}
 
 
 
@@ -61,16 +61,18 @@ stage('Run Unit Tests') {
 }
 
 
-        stage('Docker Build') {
-            steps {
-                script {
-                    echo 'Building Docker image...'
-                    // Ensure you're in the correct directory containing the Dockerfile
-                        sh "docker build -t khaledbaccouche19/baccouchekhaled-5nids2-g6:latest ."
+stage('Docker Build') {
+    steps {
+        script {
+            echo 'Checking JAR file presence in target directory...'
+            sh 'ls -l target/'
 
-                }
-            }
+            echo 'Building Docker image...'
+            // Ensure you're in the correct directory containing the Dockerfile
+            sh "docker build -t khaledbaccouche19/baccouchekhaled-5nids2-g6:latest ."
         }
+    }
+}
             stage('Push Docker Image') {
                     steps {
                         echo 'Pushing Docker image to DockerHub...'
