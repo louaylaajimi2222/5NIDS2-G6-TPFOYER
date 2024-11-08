@@ -4,11 +4,10 @@ FROM openjdk:17-jdk-alpine
 # Set the working directory
 WORKDIR /app
 
-# Copy the Spring Boot JAR file into the container
-COPY ./target/tp-foyer-5.0.0.jar app.jar
+ADD target/tp-foyer-5.0.0.jar /app/app.jar
 
 # Expose the application's port
 EXPOSE 8089
 
 # Run the application
-CMD ["java", "-jar", "app.jar", "--spring.profiles.active=prod"]
+CMD ["java", "-jar", "app.jar"]
