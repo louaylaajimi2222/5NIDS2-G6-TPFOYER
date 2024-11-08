@@ -65,11 +65,13 @@ stage('Docker Build') {
     steps {
         script {
             echo 'Checking JAR file presence in target directory...'
+            sh 'pwd'
             sh 'ls -l target/'
 
             echo 'Building Docker image...'
             // Ensure you're in the correct directory containing the Dockerfile
-            sh "docker build -t khaledbaccouche19/baccouchekhaled-5nids2-g6:latest ."
+            sh "docker build --no-cache -t khaledbaccouche19/baccouchekhaled-5nids2-g6:latest ."
+
         }
     }
 }
