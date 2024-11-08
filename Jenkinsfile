@@ -24,16 +24,16 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                script {
-                    echo "Building the Maven project..."
-                    sh 'mvn clean package'
-                    // Check if the JAR file exists in the target directory
-                    sh 'ls target/'
-                }
-            }
+stage('Build') {
+    steps {
+        script {
+            echo "Building the Maven project..."
+            sh 'mvn clean package -X'  // Use -X for debug output
+            // Check if the JAR file exists in the target directory
+            sh 'ls -l target/'
         }
+    }
+}
 
         stage('Run Unit Tests') {
             steps {
