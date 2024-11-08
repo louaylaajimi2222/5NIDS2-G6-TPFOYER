@@ -1,14 +1,14 @@
-# Use the official OpenJDK 17 image as a base
+# Use a lightweight base image
 FROM openjdk:17-jdk-alpine
 
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the JAR file from the target directory into the container
-COPY ./target/tp-foyer-1.0.0.jar app.jar
+# Copy the Spring Boot JAR file into the container
+COPY ./target/tp-foyer-5.0.0.jar app.jar
 
-# Expose the port on which the application will run
+# Expose the application's port
 EXPOSE 8089
 
-# Command to run the JAR file
-CMD ["java", "-jar", "tp-foyer.jar"]
+# Run the application
+CMD ["java", "-jar", "app.jar", "--spring.profiles.active=prod"]
