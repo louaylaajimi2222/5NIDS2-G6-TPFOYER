@@ -81,16 +81,39 @@ pipeline {
         }
         stage('Clean Up Old Containers and Images') {
             steps {
-                 sh 'docker compose down'
+                // Remove all stopped containers, unused images, and dangling images
+                sh '''
+                    docker compose down
+                '''
             }
         }
 
         stage('Deploy with Docker Compose') {
             steps {
-                // Start the application and MySQL database using Docker Compose
-                sh 'docker compose up -d'
+                 script {
+                            // Stop existing containers
+                            sh 'docker compose down'
+
+                            sh 'docker stop tp_foyer_mysql'
+
+                            sh 'docker rm tp_foyer_mysql'
+
+                            sh 'docker stop tp_foyer_app'
+
+                            sh 'docker rm tp_foyer_app'
+
+                            // Start the applications
+                            sh 'docker compose up -d'
+        
+                            // Wait for services to initialize
+                            sh 'sleep 30'
+
+                            // Verify deployment
+                            sh 'docker compose ps'
             }
+
         }
+
 
 
 
