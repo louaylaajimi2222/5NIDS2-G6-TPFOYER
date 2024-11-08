@@ -61,46 +61,4 @@ stage('Run Unit Tests') {
 }
 
 
-stage('Docker Build') {
-    steps {
-        script {
-            echo 'Checking JAR file presence in target directory...'
-            sh 'pwd'
-            sh 'ls -l target/'
-
-            echo 'Building Docker image...'
-            // Ensure you're in the correct directory containing the Dockerfile
-            sh "docker build --no-cache -t khaledbaccouche19/baccouchekhaled-5nids2-g6:latest ."
-
-        }
-    }
-}
-            stage('Push Docker Image') {
-                    steps {
-                        echo 'Pushing Docker image to DockerHub...'
-                        script {
-                            withCredentials([usernamePassword(credentialsId: 'dockerhubcredentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                                sh 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin || exit 1'
-                                sh 'docker push khaledbaccouche19/baccouchekhaled-5nids2-g6:latest'
-                            }
-                        }
-                    }
-                }
-            }
-
-
-
-    post {
-        always {
-            // Archive test results and JaCoCo reports
-            archiveArtifacts artifacts: '**/target/*.xml', allowEmptyArchive: true
-            junit '**/target/test-*.xml'  // Archive JUnit results if they exist
-        }
-        success {
-            echo 'Pipeline successfully completed!'
-        }
-        failure {
-            echo 'Pipeline failed. Please check the logs for details.'
-        }
-    }
 }
