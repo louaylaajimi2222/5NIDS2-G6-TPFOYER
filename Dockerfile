@@ -5,10 +5,10 @@ FROM openjdk:17-jdk-alpine
 WORKDIR /app
 
 # Copy the JAR file from the target directory into the container
-ADD target/DevOps_Project-1.0.jar /app/DevOps_Project.jar
+ADD target/tp-foyer-1.0.jar /app/tp-foyer.jar
 
 # Expose the port on which the application will run
 EXPOSE 8080
 
 # Command to run the JAR file
-CMD ["java", "-jar", "DevOps_Project.jar"]
+CMD ["java", "-jar", "tp-foyer.jar"]
