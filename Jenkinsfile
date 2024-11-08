@@ -29,7 +29,9 @@ environment {
             steps {
                 script {
                     echo "Building the Maven project..."
-                    sh 'mvn clean package -DskipTests'
+                    sh 'mvn clean package'
+                    // Check if the JAR file exists
+                    sh 'ls target/'
                 }
             }
         }
