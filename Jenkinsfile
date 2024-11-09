@@ -38,6 +38,36 @@ pipeline {
             }
         }
 
+
+     stage('Deploy to Nexus') {
+                            steps {
+
+                                    withCredentials([usernamePassword(credentialsId: 'nexus-credentials', passwordVariable: 'NEXUS_PASSWORD', usernameVariable: 'NEXUS_USERNAME')]) {
+                                        // Execute Maven deploy command
+                                        sh 'mvn deploy -Dusername=$NEXUS_USERNAME -Dpassword=$NEXUS_PASSWORD'
+                                    }
+                                }
+
+                        }
+
+
+
+        stage('Scan') {
+            steps {
+
+                    script {
+                        sh 'chmod +x ./mvnw'
+                    }
+                    withSonarQubeEnv('sonarqube') {
+                        sh '''./mvnw sonar:sonar \
+                          -Dsonar.java.binaries=target/classes \
+                          -Dsonar.jacoco.reportPaths=target/jacoco.exec'''
+                    }
+                }
+
+        }
+
+
         stage('Docker Build') {
             steps {
                 script {
