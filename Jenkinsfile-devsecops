@@ -33,7 +33,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_TOKEN')]) {
-                    sh "mvn sonar:sonar -Dsonar.login=${SONAR_TOKEN} -Dsonar.projectKey=projet-jenkins -Dsonar.projectName='projet-jenkins'"
+                    sh "mvn sonar:sonar -Dsonar.dependencyCheck.jsonReportPath=./target/dependency-check-report.json -Dsonar.dependencyCheck.htmlReportPath=./target/dependency-check-report.html -Dsonar.login=${SONAR_TOKEN} -Dsonar.projectKey=projet-jenkins -Dsonar.projectName='projet-jenkins'"
                 }
             }
         }
