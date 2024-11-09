@@ -79,6 +79,15 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                     <groupId>org.owasp</groupId>
+                     <artifactId>dependency-check-maven</artifactId>
+                       <version>11.1.0</version>
+                       <configuration>
+                                <nvdApiKey>96ca1f63-c497-4af4-98ce-36b9a3a17e59</nvdApiKey>
+                                <failBuildOnCVSS>11</failBuildOnCVSS> <!--Change to fail build-->
+                       </configuration>
+            </plugin>
         </plugins>
     </build>
 
