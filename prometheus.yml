@@ -15,6 +15,6 @@ scrape_configs:
     static_configs:
       - targets: ['192.168.56.10:8089']
 
-  - job_name: 'ubuntu'
+  - job_name: 'vagrant'
     static_configs:
       - targets: ['192.168.56.10:9100']  # Remplacez par l'adresse IP de votre machine Ubuntu

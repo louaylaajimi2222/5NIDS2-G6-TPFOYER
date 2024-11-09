@@ -38,6 +38,28 @@ pipeline {
             }
         }
 
+stage('Run Unit Tests') {
+    steps {
+
+            script {
+                try {
+                    // Run the unit tests
+                    sh 'mvn clean test'
+
+                    // Generate the JaCoCo report after tests pass
+                    sh 'mvn jacoco:report'
+
+                    // Ensure that JaCoCo report generation is recognized by Jenkins
+                    jacoco execPattern: 'target/jacoco.exec'
+                } catch (Exception e) {
+                    // Mark the build as failed and provide an error message
+                    currentBuild.result = 'FAILURE'
+                    error "Tests failed or JaCoCo report generation failed: ${e.message}"
+                }
+            }
+        }
+
+}
 
      stage('Deploy to Nexus') {
                             steps {
