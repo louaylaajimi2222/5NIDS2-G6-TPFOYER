@@ -87,13 +87,6 @@ pipeline {
                 '''
             }
         }
-
-        stage('Deploy with Docker Compose') {
-            steps {
-                // Start the application and MySQL database using Docker Compose
-                sh 'docker compose up -d'
-            }
-        }
                 stage('Deploy with Docker Compose') {
                     steps {
                         script {
