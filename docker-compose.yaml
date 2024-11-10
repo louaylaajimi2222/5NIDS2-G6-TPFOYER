@@ -3,6 +3,7 @@ version: '3.8'
 services:
   app:
     image: zarouiahmeed/ahmedzaroui-5nids2-g6-tpfoyer:latest
+    restart: on-failure
     container_name: tp_foyer_app
     ports:
       - "8089:8089"
