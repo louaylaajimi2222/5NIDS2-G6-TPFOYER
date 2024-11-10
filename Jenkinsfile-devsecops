@@ -27,7 +27,7 @@ pipeline {
         }
         stage('OWASP Dependency Vulnerability check'){
             steps {
-                        sh "/opt/maven/bin/mvn dependency-check:check -Dformats=XML,JSON,HTML"
+                sh "mvn dependency-check:check -Dformats=XML,JSON,HTML"
             }
         }
         stage('SonarQube Analysis') {
