@@ -126,9 +126,10 @@ pipeline {
             }
         }
     }
+
     post {
         always {
             sh 'docker container rm owasp_zam'
         }
-    ]
+    }
 }
