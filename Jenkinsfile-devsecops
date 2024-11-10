@@ -101,7 +101,7 @@ pipeline {
         stage('SQLMap Test') {
            steps {
                sh '''
-                   sqlmap -u http://192.168.22.10:8089/tpfoyer/foyer/add-foyer --batch --risk=3 --level=5 --data '{"name":"Test University", "location":"Test Location"}' --dbs
+                   sqlmap -u http://192.168.50.4:8081:8089/tpfoyer/foyer/add-foyer --batch --risk=3 --level=5 --data '{"name":"Test University", "location":"Test Location"}' --dbs
                '''
            }
        }
@@ -110,7 +110,7 @@ pipeline {
                 script{
                     sleep(time: 2, unit: 'MINUTES')
                     def zapOutputFile = 'zap_scan_output.txt'
-                    def exitCode = sh(script: "docker run --name owasp_zap -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://192.168.56.10:8089/tpfoyer/ > ${zapOutputFile} 2>&1", returnStatus: true)
+                    def exitCode = sh(script: "docker run --name owasp_zap -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://192.168.50.4:8081:8089/tpfoyer/ > ${zapOutputFile} 2>&1", returnStatus: true)
                     def zapOutput = readFile(zapOutputFile)
                     echo "OWASP ZAP Output:\n${zapOutput}"
                     if(exitCode == 0){
