@@ -125,10 +125,10 @@ pipeline {
                 }
             }
         }
-        stage('Zap cleanup'){
-            steps{
-                sh "docker container rm owasp_zap"
-            }
-        }
     }
+    post {
+        always {
+            sh 'docker container rm owasp_zam'
+        }
+    ]
 }
