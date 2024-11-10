@@ -98,6 +98,13 @@ pipeline {
                  sh 'docker compose up -d'
             }
         }
+        stage('Waiting for container startup'){
+            steps{
+                script{
+                    sleep(time: 2, unit: 'MINUTES')
+                }
+            }
+        }
         stage('SQLMap Test') {
            steps {
                sh '''
@@ -108,7 +115,6 @@ pipeline {
         stage('OWASP ZAP Baseline - Production Phase'){
             steps{
                 script{
-                    sleep(time: 2, unit: 'MINUTES')
                     def zapOutputFile = 'zap_scan_output.txt'
                     def exitCode = sh(script: "docker run --name owasp_zap -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://192.168.50.4:8089/tpfoyer/ > ${zapOutputFile} 2>&1", returnStatus: true)
                     def zapOutput = readFile(zapOutputFile)
@@ -129,7 +135,7 @@ pipeline {
 
     post {
         always {
-            sh 'docker container rm owasp_zam'
+            sh 'docker container rm owasp_zap'
         }
     }
 }
