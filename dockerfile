@@ -11,4 +11,4 @@ COPY ./target/tp-foyer-5.0.0.jar app.jar
 EXPOSE 8089
 
 # Run the application
-CMD ["java", "-jar", "app.jar", "--spring.profiles.active=prod"]
+CMD ["java", "-jar", "app.jar"]
