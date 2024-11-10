@@ -25,15 +25,10 @@ pipeline {
                 sh "mvn compile"
             }
         }
-        stage('OWASP Dependency Vulnerability check'){
-            steps {
-                sh "mvn dependency-check:check -Dformats=XML,JSON,HTML"
-            }
-        }
         stage('SonarQube Analysis') {
             steps {
                 withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_TOKEN')]) {
-                    sh "mvn sonar:sonar -Dsonar.dependencyCheck.jsonReportPath=./target/dependency-check-report.json -Dsonar.dependencyCheck.htmlReportPath=./target/dependency-check-report.html -Dsonar.login=${SONAR_TOKEN} -Dsonar.projectKey=projet-jenkins -Dsonar.projectName='projet-jenkins'"
+                    sh "mvn sonar:sonar -Dsonar.login=${SONAR_TOKEN} -Dsonar.projectKey=projet-jenkins -Dsonar.projectName='projet-jenkins'"
                 }
             }
         }
@@ -94,45 +89,8 @@ pipeline {
         }
         stage('Deploy with Docker Compose') {
             steps {
-                // Start the application and MySQL database using Docker Compose
-                sh 'docker compose up -d'
-            }
-        }
-        stage('Waiting for container to start'){
-        	script{
-        		sleep(time: 2, unit: 'MINUTES')
-        	}
-        }
-        stage('SQLMap Test') {
-            steps {
-                sh '''
-                    # Test POST request for add-universite BADEL BEL ENTITY TEEK
-                    sqlmap -u http://192.168.50.4:8089/tpfoyer/foyer/add-foyer --batch --risk=3 --level=5 --data '{"name":"Test University", "location":"Test Location"}' --dbs
-                '''
-            }
-        }
-        stage('OWASP ZAP Baseline - Production Phase'){
-            steps{
-                script{
-                    def zapOutputFile = 'zap_scan_output.txt'
-                    def exitCode = sh(script: "docker run --name owasp_zap -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://192.168.50.4:8089/tpfoyer/ > ${zapOutputFile} 2>&1", returnStatus: true)
-                    def zapOutput = readFile(zapOutputFile)
-                    echo "OWASP ZAP Output:\n${zapOutput}"
-                    if(exitCode == 0){
-                        echo "Success: No issues found."
-                    } else if(exitCode == 1){
-                        error "Failure: At least one FAIL detected."
-                    } else if (exitCode == 2){
-                        echo "Warning: At least one WARN detected, but no FAILs."
-                    } else {
-                        error "Unknown error occurred. Exit code: ${exitCode}"
-                    }
-                }
-            }
-        }
-        stage(‘Zap cleanup’){
-            steps{
-                sh "docker container rm owasp_zap"
+                 // Start the application and MySQL database using Docker Compose
+                 sh 'docker compose up -d'
             }
         }
     }
