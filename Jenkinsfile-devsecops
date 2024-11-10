@@ -135,6 +135,5 @@ pipeline {
                 sh "docker container rm owasp_zap"
             }
         }
-
     }
 }
