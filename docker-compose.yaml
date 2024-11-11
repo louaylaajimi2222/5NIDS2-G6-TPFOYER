@@ -1,0 +1,58 @@
+services:
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: student
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - data_mysql:/var/lib/mysql
+    networks:
+      - my-network
+
+  app:
+    image: louay222/fy:9.0.0  # Remplacez par le nom de votre image Spring Boot
+    depends_on:
+      - db
+    ports:
+      - "8089:8089"
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url": "jdbc:mysql://db:3306/student?createDatabaseIfNotExist=true",
+        "spring.datasource.username": "admin",
+        "spring.datasource.password": "root",
+        "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQLDialect",
+        "spring.jpa.hibernate.ddl-auto": "update"
+      }'
+    networks:
+      - my-network
+
+  prometheus:
+    image:  bitnami/prometheus:latest   # Utilisez une version stable
+    volumes:
+      - /home/ubuntu/devops/prometheus.yaml:/etc/prometheus/prometheus.yml  # Chemin corrigé pour le fichier de configuration
+      - prometheus-data:/etc/prometheus  # Volume pour stocker les données
+    ports:
+      - "9090:9090"
+    networks:
+      - my-network
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3001:3000"
+    networks:
+      - my-network
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin  # Correction de la syntaxe
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  data_mysql:
+  prometheus-data:  # Volume pour les données de Prometheus
