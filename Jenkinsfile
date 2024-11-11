@@ -28,6 +28,35 @@ pipeline {
                 }
             }
         }
+        stage('Packaging') { 
+            steps {
+                echo 'Packaging...'
+                sh 'mvn package -DskipTests'
+            }
+        }
+
+        stage('Deploying') { 
+            steps {
+                echo 'Deploying...'
+                sh 'mvn deploy -DskipTests'
+            }
+        }
+    stage('Building image') { 
+            steps {
+                echo 'Building Docker image...'
+                sh 'docker build --no-cache -t youssefhessine/youssefhessine-back-end:1.1.0 .'
+            }
+        }
+      
+    stage('Docker Compose') { 
+            steps {
+                echo 'Starting Docker Compose...'
+                sh 'docker-compose down -v'
+                sh 'docker-compose up -d'
+            }
+        }
+
+        
         
     }
 }
