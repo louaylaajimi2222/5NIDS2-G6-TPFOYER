@@ -54,10 +54,10 @@ pipeline {
                     echo "Running Maven analysis..."
                     sh '''
                    mvn clean verify sonar:sonar \
-                    -Dsonar.projectKey=devecsecops \
-                    -Dsonar.projectName='devecsecops' \
-                    -Dsonar.host.url=http://35.180.21.137:9000 \
-                    -Dsonar.token=sqp_cc3a39044100d601c3fb998f14f703a4175c24bc
+                      -Dsonar.projectKey=aa \
+                      -Dsonar.projectName='aa' \
+                      -Dsonar.host.url=http://35.180.21.137:9000 \
+                      -Dsonar.token=sqp_b1633a6232a9bef51522f7f1fc505917695929d0
                     '''
                 }
             }
