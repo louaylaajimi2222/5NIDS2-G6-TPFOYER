@@ -22,7 +22,7 @@ services:
   tp-foyer:
     depends_on:
       - mysqldb
-    image: youssefhessine/youssefhessine-back-end
+    image: youssefhessine/youssefhessine-back-end:1.0.0
     restart: on-failure
     ports:
       - 8089:8089
