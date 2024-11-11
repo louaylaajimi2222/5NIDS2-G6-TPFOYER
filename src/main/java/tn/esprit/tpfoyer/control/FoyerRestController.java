@@ -8,6 +8,7 @@ import tn.esprit.tpfoyer.service.IFoyerService;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @AllArgsConstructor
 @RequestMapping("/foyer")
 public class FoyerRestController {
