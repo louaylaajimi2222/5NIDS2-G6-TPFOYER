@@ -6,6 +6,7 @@ pipeline {
         DOCKER_IMAGE = 'khaledbaccouche19/baccouchekhaled-5nids2-g6'
         VERSION = "latest"
         GIT_BRANCH = 'Baccouchekhaled-5NIDS2-G6'
+        DOCKER_HUB_REPO = 'khaledbaccouche19/baccouchekhaled-5nids2-g6'
     }
 
     stages {
@@ -104,39 +105,52 @@ pipeline {
                 }
             }
         }
-    }
 
- post {
-                always {
-                    script {
-                        def jobName = env.JOB_NAME
-                        def buildNumber = env.BUILD_NUMBER
-                        def pipelineStatus = currentBuild.result ?: 'UNKNOWN'
-                        def bannerColor = pipelineStatus.toUpperCase() == 'SUCCESS' ? 'green' : 'red'
-
-                        def body = """
-                        <html>
-                        <body>
-                            <div style="border: 4px solid ${bannerColor}; padding: 10px;">
-                                <h2>${jobName} - Build ${buildNumber}</h2>
-                                <div style="background-color: ${bannerColor}; padding: 10px;">
-                                    <h3 style="color: white;">Pipeline Status: ${pipelineStatus.toUpperCase()}</h3>
-                                </div>
-                                <p>Check the <a href="${env.BUILD_URL}">console output</a>.</p>
-                            </div>
-                        </body>
-                        </html>
-                        """
-
-                        emailext(
-                            subject: "${jobName} - Build ${buildNumber} - ${pipelineStatus.toUpperCase()}",
-                            body: body,
-                            to: 'khaledaziz.baccouche@esprit.tn',
-                            from: 'professoraadi@outlook.com',
-                            replyTo: 'professoraadi@outlook.com',
-                            mimeType: 'text/html'
-                        )
-                    }
+        stage('Trivy Scan') {
+            environment {
+                TRIVY_REPO = "${DOCKER_IMAGE}:${VERSION}"
+            }
+            steps {
+                script {
+                    echo 'Running Trivy security scan...'
+                    sh "trivy image --severity HIGH,CRITICAL --no-progress --format table --timeout 15m -o trivy-scan-report.txt ${TRIVY_REPO}"
+                    echo 'Trivy scan report generated as trivy-scan-report.txt'
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            script {
+                def jobName = env.JOB_NAME
+                def buildNumber = env.BUILD_NUMBER
+                def pipelineStatus = currentBuild.result ?: 'UNKNOWN'
+                def bannerColor = pipelineStatus.toUpperCase() == 'SUCCESS' ? 'green' : 'red'
+
+                def body = """
+                <html>
+                <body>
+                    <div style="border: 4px solid ${bannerColor}; padding: 10px;">
+                        <h2>${jobName} - Build ${buildNumber}</h2>
+                        <div style="background-color: ${bannerColor}; padding: 10px;">
+                            <h3 style="color: white;">Pipeline Status: ${pipelineStatus.toUpperCase()}</h3>
+                        </div>
+                        <p>Check the <a href="${env.BUILD_URL}">console output</a>.</p>
+                    </div>
+                </body>
+                </html>
+                """
+
+                emailext(
+                    subject: "${jobName} - Build ${buildNumber} - ${pipelineStatus.toUpperCase()}",
+                    body: body,
+                    to: 'khaledaziz.baccouche@esprit.tn',
+                    from: 'professoraadi@outlook.com',
+                    replyTo: 'professoraadi@outlook.com',
+                    mimeType: 'text/html'
+                )
+            }
+        }
+    }
 }
