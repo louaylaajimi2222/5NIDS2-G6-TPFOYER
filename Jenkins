@@ -1,0 +1,12 @@
+pipeline {
+    agent any
+    stages {
+        stage("git clone") {
+            steps {
+                git branch: 'main',
+                    credentialsId: 'youssefhessine',
+                    url: 'github.com/louaylaajimi2222/5NIDS2-G6-TPFOYER.git'
+            }
+        }
+    }
+}
