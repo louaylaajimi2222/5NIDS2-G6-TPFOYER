@@ -1,27 +1,27 @@
 pipeline {
     agent any
-     environment {
+    environment {
         SONAR_TOKEN = credentials('sonarqube')
         NEXUS_VERSION = 'nexus3'
         NEXUS_PROTOCOL = 'http'
         NEXUS_URL = '192.168.50.4:8081'             // Nexus URL
-        NEXUS_REPOSITORY = '5nids2-G6-tp_foyer'                // Nexus Repository for Maven Releases
-        NEXUS_CREDENTIAL_ID = 'nexus'                        // Nexus Credentials ID
-        }
+        NEXUS_REPOSITORY = '5nids2-G6-tp_foyer'    // Nexus Repository for Maven Releases
+        NEXUS_CREDENTIAL_ID = 'nexus'               // Nexus Credentials ID
+    }
     stages {
         stage('Checkout GIT') {
             steps {
                 git branch: 'ZarouiAhmed-5NIDS2-G6',
-                url: 'https://github.com/louaylaajimi2222/5NIDS2-G6-TPFOYER.git'            
+                url: 'https://github.com/louaylaajimi2222/5NIDS2-G6-TPFOYER.git'
             }
         }
         stage('Maven Clean') {
-            steps{
+            steps {
                 sh "mvn clean"
             }
         }
         stage('Maven Compile') {
-            steps{
+            steps {
                 sh "mvn compile"
             }
         }
@@ -32,17 +32,17 @@ pipeline {
                 }
             }
         }
-        stage('Maven Test'){
-            steps{
+        stage('Maven Test') {
+            steps {
                 sh "mvn test"
             }
         }
-        stage('Maven Package'){
-            steps{
+        stage('Maven Package') {
+            steps {
                 sh "mvn package -DskipTests"
             }
         }
-        stage('Indexing in Nexus'){
+        stage('Indexing in Nexus') {
             steps {
                 sh "mvn deploy -Dmaven.test.skip=true -DaltDeploymentRepository=deploymentRepo::default::http://192.168.50.4:8081/repository/5nids2-G6-tp_foyer/"
             }
@@ -64,18 +64,18 @@ pipeline {
                 }
             }
         }
-        stage('Building Docker Image'){
-            steps{
+        stage('Building Docker Image') {
+            steps {
                 sh "docker build -t ahmedzaroui-5nids2-g6-tpfoyer ."
             }
         }
-        stage('Tagging Docker Image'){
-            steps{
+        stage('Tagging Docker Image') {
+            steps {
                 sh "docker tag ahmedzaroui-5nids2-g6-tpfoyer:latest zarouiahmeed/ahmedzaroui-5nids2-g6-tpfoyer:latest"
             }
         }
-        stage('Pushing Docker Image'){
-            steps{
+        stage('Pushing Docker Image') {
+            steps {
                 sh "docker push zarouiahmeed/ahmedzaroui-5nids2-g6-tpfoyer:latest"
             }
         }
@@ -83,19 +83,28 @@ pipeline {
             steps {
                 // Remove all stopped containers, unused images, and dangling images
                 sh '''
-                    docker compose down 
+                    docker compose down
                 '''
             }
         }
-
         stage('Deploy with Docker Compose') {
             steps {
                 // Start the application and MySQL database using Docker Compose
                 sh 'docker compose up -d'
             }
         }
-
-
-
+    }
+    post {
+        always {
+            emailext(
+                subject: "Jenkins Build Notification: ${currentBuild.fullDisplayName}",
+                body: """
+                    <p>Build ${currentBuild.fullDisplayName} finished with status: ${currentBuild.currentResult}</p>
+                    <p>Check the console output at <a href="${env.BUILD_URL}">Jenkins Build</a> for details.</p>
+                """,
+                to: 'azaroui86@gmail.com',
+                mimeType: 'text/html'
+            )
+        }
     }
 }
