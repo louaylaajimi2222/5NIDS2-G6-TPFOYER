@@ -118,6 +118,19 @@ pipeline {
                 }
             }
         }
+
+        stage('Grype Scan') {
+            environment {
+                GRYPE_REPO = "${DOCKER_IMAGE}:${VERSION}"
+            }
+            steps {
+                script {
+                    echo 'Running Grype security scan...'
+                    sh "grype ${GRYPE_REPO} --fail-on high --output table > grype-scan-report.txt"
+                    echo 'Grype scan report generated as grype-scan-report.txt'
+                }
+            }
+        }
     }
 
     post {
