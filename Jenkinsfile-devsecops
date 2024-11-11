@@ -101,7 +101,7 @@ pipeline {
         stage('Waiting for container startup'){
             steps{
                 script{
-                    sleep(time: 2, unit: 'MINUTES')
+                    sleep(time: 4, unit: 'MINUTES')
                 }
             }
         }
