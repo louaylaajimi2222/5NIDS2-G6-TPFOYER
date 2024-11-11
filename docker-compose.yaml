@@ -7,7 +7,7 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: root
     ports:
-      - "3307:3306"
+      - "3308:3306"
     volumes:
       - data_mysql:/var/lib/mysql
     networks:
@@ -18,7 +18,7 @@ services:
     depends_on:
       - db
     ports:
-      - "8089:8089"
+      - "8086:8089"
     environment:
       SPRING_APPLICATION_JSON: '{
         "spring.datasource.url": "jdbc:mysql://db:3306/student?createDatabaseIfNotExist=true",
@@ -36,14 +36,14 @@ services:
       - /home/ubuntu/devops/prometheus.yaml:/etc/prometheus/prometheus.yml  # Chemin corrigé pour le fichier de configuration
       - prometheus-data:/etc/prometheus  # Volume pour stocker les données
     ports:
-      - "9090:9090"
+      - "9091:9090"
     networks:
       - my-network
 
   grafana:
     image: grafana/grafana
     ports:
-      - "3001:3000"
+      - "3002:3000"
     networks:
       - my-network
     environment:
