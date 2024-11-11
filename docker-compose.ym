@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+  mysqldb:
+    image: mysql:8.3.0
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=db
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - my_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  tp-foyer:
+    depends_on:
+      - mysqldb
+    image: hichemnajjar/hichem-back-end:1.0.0
+    restart: on-failure
+    ports:
+      - 8089:8089
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url"  : "jdbc:mysql://mysqldb:3306/db?createDatabaseIfNotExist=true",
+        "spring.datasource.username" : "root",
+        "spring.datasource.password" : "root",
+        "spring.jpa.hibernate.ddl-auto" : "update"
+      }'
+    stdin_open: true
+    tty: true
+    networks:
+      - my_network
+
+  angular-app:
+    image:  hichemnajjar/hichem-front-end:2.0.0
+    restart: unless-stopped
+    ports:
+      - 8085:80
+    networks:
+      - my_network
+
+volumes:
+  db:
+
+networks:
+  my_network:
