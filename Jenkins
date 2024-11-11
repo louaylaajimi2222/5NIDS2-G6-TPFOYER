@@ -3,9 +3,9 @@ pipeline {
     stages {
         stage("git clone") {
             steps {
-                git branch: 'main',
+                git branch: 'YoussefHessine',
                     credentialsId: 'youssefhessine',
-                    url: 'github.com/louaylaajimi2222/5NIDS2-G6-TPFOYER.git'
+                    url: 'https://github.com/louaylaajimi2222/5NIDS2-G6-TPFOYER.git'
             }
         }
     }
