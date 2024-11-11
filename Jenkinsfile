@@ -18,7 +18,7 @@ pipeline {
                 script {
                     echo "Running Maven analysis..."
                     sh '''
-                           mvn clean verify Sonar:Sonar \
+                           mvn clean verify Sonar:sonar \
                           -Dsonar.projectKey=DevOps \
                           -Dsonar.projectName='DevOps' \
                           -Dsonar.host.url=http://192.168.1.9:9000 \
