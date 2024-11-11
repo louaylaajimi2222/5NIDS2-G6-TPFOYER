@@ -126,8 +126,15 @@ pipeline {
             steps {
                 script {
                     echo 'Running Grype security scan...'
-                    sh "grype ${GRYPE_REPO} --fail-on high --output table > grype-scan-report.txt"
-                    echo 'Grype scan report generated as grype-scan-report.txt'
+                    def grypeStatus = sh(script: "grype ${GRYPE_REPO} --fail-on high --output table > grype-scan-report.txt", returnStatus: true)
+
+                    if (grypeStatus == 1) {
+                        echo 'Grype found vulnerabilities above the severity threshold. Check grype-scan-report.txt for details.'
+                    } else if (grypeStatus != 0) {
+                        error 'Grype scan encountered an error.'
+                    } else {
+                        echo 'Grype scan completed successfully with no high-severity vulnerabilities.'
+                    }
                 }
             }
         }
