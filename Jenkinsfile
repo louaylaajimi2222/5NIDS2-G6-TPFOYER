@@ -95,17 +95,4 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            emailext(
-                subject: "Jenkins Build Notification: ${currentBuild.fullDisplayName}",
-                body: """
-                    <p>Build ${currentBuild.fullDisplayName} finished with status: ${currentBuild.currentResult}</p>
-                    <p>Check the console output at <a href="${env.BUILD_URL}">Jenkins Build</a> for details.</p>
-                """,
-                to: 'azaroui86@gmail.com',
-                mimeType: 'text/html'
-            )
-        }
-    }
 }
