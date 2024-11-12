@@ -92,7 +92,7 @@ pipeline {
 
         stage("DOCKER IMAGE") {
             steps {
-                sh "sudo docker build -t louay222/fy:9.0.0 ."
+                sh " docker build -t louay222/fy:9.0.0 ."
             }
         }
          /*stage("trivy scan ") {
