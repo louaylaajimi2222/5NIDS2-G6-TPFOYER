@@ -4,7 +4,7 @@ pipeline {
     environment {
        
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-        ENCRYPTED = credentials('vault_password_id')
+        
         SONAR = credentials('sonar')
     }
 
@@ -90,19 +90,7 @@ pipeline {
         }
     
 
-        /* Uncomment if needed for decryption
-        stage("Decrypt Dockerfile") {
-            steps {
-                script {
-                    withCredentials([string(credentialsId: 'vault_password_id', variable: 'VAULT_PASSWORD')]) {
-                        sh """
-                            ansible-vault decrypt Dockerfile --vault-password-file <(echo \$VAULT_PASSWORD)
-                        """
-                    }
-                }
-            }
-        }
-        */
+        
 
         stage("DOCKER IMAGE") {
             steps {
