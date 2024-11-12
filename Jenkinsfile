@@ -56,8 +56,8 @@ pipeline {
                   mvn clean verify sonar:sonar \
                   -Dsonar.projectKey=devops \
                   -Dsonar.projectName='devops' \
-                  -Dsonar.host.url=http://35.180.123.229:9000 \
-                  -Dsonar.token=sqp_d7f2deaf22e5736f8a30b19bae260b5159fffd57
+                  -Dsonar.host.url=http://52.47.140.147:9000 \
+                  -Dsonar.token=sqp_d4e843d229fa3d999ae36aaa58b2916a6928d7df
                     '''
                 }
             }
