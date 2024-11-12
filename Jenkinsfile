@@ -96,15 +96,20 @@ pipeline {
         }
         stage('Send Email Notification') {
             steps {
-                emailext(
-                    subject: "Jenkins Build Notification: ${currentBuild.fullDisplayName}",
-                    body: """
-                        <p>Build ${currentBuild.fullDisplayName} finished with status: ${currentBuild.currentResult}</p>
-                        <p>Check the console output at <a href="${env.BUILD_URL}">Jenkins Build</a> for details.</p>
-                    """,
-                    to: 'azaroui86@gmail.com',
-                    mimeType: 'text/html'
-                )
+                 emailext(
+                            subject: "Jenkins Build Notification: ${currentBuild.fullDisplayName}",
+                            body: """
+                                <p>Build ${currentBuild.fullDisplayName} finished with status: ${currentBuild.currentResult}</p>
+                                <p>Check the console output at <a href="${env.BUILD_URL}">Jenkins Build</a> for details.</p>
+                            """,
+                            to: 'azaroui86@gmail.com',
+                            mimeType: 'text/html',
+                            smtpHost: 'smtp.gmail.com',
+                            smtpPort: 587,
+                            smtpUsername: 'your-email@gmail.com',        // Use your full Gmail address
+                            smtpPassword: 'your-app-password',           // Use the app password you generated
+                            smtpTLS: true
+                 )
             }
         }
     }
