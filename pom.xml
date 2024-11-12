@@ -51,7 +51,11 @@
             <version>2.1.0</version>
         </dependency>
 
-        
+        <groupId>louay.devops.tn</groupId>
+<artifactId>tp-foyer</artifactId>
+<version>0.0.1</version>
+<name>numeric</name>
+<description>louay</description>
 
     </dependencies>
 
