@@ -8,7 +8,7 @@ pipeline {
         NEXUS_REPOSITORY = '5nids2-G6-tp_foyer'                // Nexus Repository for Maven Releases
         NEXUS_CREDENTIAL_ID = 'nexus'                        // Nexus Credentials ID
         }
-     stages {
+      stages {
         stage('Checkout GIT') {
             steps {
                 git branch: 'ZarouiAhmed-5NIDS2-G6',
@@ -112,6 +112,6 @@ pipeline {
                  )
             }
         }
-     }
+      }
     }
 }
