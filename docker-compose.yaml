@@ -30,6 +30,16 @@ services:
     networks:
       - my-network
 
+
+
+  prometheus:
+    image: bitnami/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - /home/ubuntu/devops/prometheus.yml:/etc/prometheus/prometheus.yml
+    restart: unless-stoppe
  
 
   grafana:
