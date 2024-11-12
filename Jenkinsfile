@@ -7,7 +7,7 @@ pipeline {
         NEXUS_URL = '192.168.50.4:8081'             // Nexus URL
         NEXUS_REPOSITORY = '5nids2-G6-tp_foyer'                // Nexus Repository for Maven Releases
         NEXUS_CREDENTIAL_ID = 'nexus'                        // Nexus Credentials ID
-     }
+        }
     stages {
         stage('Checkout GIT') {
             steps {
@@ -92,24 +92,6 @@ pipeline {
             steps {
                 // Start the application and MySQL database using Docker Compose
                 sh 'docker compose up -d'
-            }
-        }
-        stage('Send Email Notification') {
-            steps {
-                 emailext(
-                            subject: "Jenkins Build Notification: ${currentBuild.fullDisplayName}",
-                            body: """
-                                <p>Build ${currentBuild.fullDisplayName} finished with status: ${currentBuild.currentResult}</p>
-                                <p>Check the console output at <a href="${env.BUILD_URL}">Jenkins Build</a> for details.</p>
-                            """,
-                            to: 'azaroui86@gmail.com',
-                            mimeType: 'text/html',
-                            smtpHost: 'smtp.gmail.com',
-                            smtpPort: 587,
-                            smtpUsername: 'azaroui86@gmail.com',        // Use your full Gmail address
-                            smtpPassword: 'rjvbydrxccufuujz',           // Use the app password you generated
-                            smtpTLS: true
-                 )
             }
         }
     }
