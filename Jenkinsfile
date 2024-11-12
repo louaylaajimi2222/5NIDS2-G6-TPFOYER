@@ -14,7 +14,7 @@ pipeline {
             }
         }
         
-   /* stage("Sonar") {
+     stage("Sonar") {
             steps {
                 script {
                     echo "Running Maven analysis..."
@@ -28,20 +28,20 @@ pipeline {
                         '''
                 }
             }
-        }*/
+        }
         stage('Packaging') { 
             steps {
                 echo 'Packaging...'
                 sh 'mvn package -DskipTests'
             }
-        }
+        }/*
 
         stage('Deploying') { 
             steps {
                 echo 'Deploying...'
                 sh 'mvn deploy -DskipTests'
             }
-        }
+        }*/
     stage('Building image') { 
             steps {
                 echo 'Building Docker image...'
