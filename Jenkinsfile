@@ -13,7 +13,7 @@ pipeline {
                 sh "mvn clean install"
             }
         }
-      
+          /*
     stage("Sonar") {
             steps {
                 script {
@@ -29,7 +29,7 @@ pipeline {
                 }
             }
         }
-          /*
+       */
         stage('Packaging') { 
             steps {
                 echo 'Packaging...'
@@ -49,7 +49,7 @@ pipeline {
                 sh 'docker build --no-cache -t youssefhessine/youssefhessine-back-end:1.1.0 .'
             }
         }
-      */
+     
     stage('Docker Compose') { 
             steps {
                 echo 'Starting Docker Compose...'
