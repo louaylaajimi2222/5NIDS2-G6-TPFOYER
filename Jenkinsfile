@@ -23,7 +23,7 @@ pipeline {
                           -Dsonar.projectKey=DevOpsFinal \
                           -Dsonar.projectName='DevOpsFinal' \
                           -Dsonar.host.url=http://192.168.56.10:9001 \
-                          -Dsonar.token=sqp_e700b11fc4853714e09799b6c2a5856360ceaf24
+                          -Dsonar.token=sqa_04e73575b143f30b317b276de6282dd536175dbb
 
                         '''
                 }
