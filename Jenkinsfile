@@ -13,7 +13,7 @@ pipeline {
                 sh "mvn clean install"
             }
         }
-        
+     /*   
      stage("Sonar") {
             steps {
                 script {
@@ -28,7 +28,7 @@ pipeline {
                         '''
                 }
             }
-        }
+        }*/
         stage('Packaging') { 
             steps {
                 echo 'Packaging...'
