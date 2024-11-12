@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    environment {
+     environment {
         SONAR_TOKEN = credentials('sonarqube')
         NEXUS_VERSION = 'nexus3'
         NEXUS_PROTOCOL = 'http'
@@ -8,7 +8,7 @@ pipeline {
         NEXUS_REPOSITORY = '5nids2-G6-tp_foyer'                // Nexus Repository for Maven Releases
         NEXUS_CREDENTIAL_ID = 'nexus'                        // Nexus Credentials ID
         }
-      stages {
+    stages {
         stage('Checkout GIT') {
             steps {
                 git branch: 'ZarouiAhmed-5NIDS2-G6',
@@ -107,11 +107,10 @@ pipeline {
                             smtpHost: 'smtp.gmail.com',
                             smtpPort: 587,
                             smtpUsername: 'azaroui86@gmail.com',        // Use your full Gmail address
-                            smtpPassword: 'rjvb ydrx ccuf uujz',           // Use the app password you generated
+                            smtpPassword: 'rjvbydrxccufuujz',           // Use the app password you generated
                             smtpTLS: true
                  )
             }
         }
-      }
     }
 }
