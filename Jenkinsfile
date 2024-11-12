@@ -22,7 +22,7 @@ pipeline {
                         mvn clean verify sonar:sonar \
                           -Dsonar.projectKey=DevOpsFinal \
                           -Dsonar.projectName='DevOpsFinal' \
-                          -Dsonar.host.url=http://192.168.1.9:9000 \
+                          -Dsonar.host.url=http://192.168.56.10:9001 \
                           -Dsonar.token=sqp_e700b11fc4853714e09799b6c2a5856360ceaf24
 
                         '''
