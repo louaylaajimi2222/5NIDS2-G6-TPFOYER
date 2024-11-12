@@ -80,7 +80,7 @@ pipeline {
                     ]],
                     credentialsId: 'nexus',
                     groupId: 'louay.devops.tn',
-                    nexusUrl: '35.180.21.137:8081/:8081',
+                    nexusUrl: '35.180.123.229/:8081',
                     nexusVersion: 'nexus3',
                     protocol: 'http',
                     repository: 'artifact',
