@@ -62,6 +62,33 @@ pipeline {
                 }
             }
         }
+        stage('Mockito Tests') {
+            steps {
+                sh 'mvn test -DargLine="-javaagent:target/jacoco-agent.jar=destfile=target/jacoco.exec"'
+            }
+        }
+
+
+       stage("NEXUS") {
+            steps {
+                script {
+                    nexusArtifactUploader artifacts: [[
+                        artifactId: 'tp-foyer',
+                        classifier: '',
+                        file: 'target/tp-foyer-5.0.0.jar',
+                        type: 'jar'
+                    ]],
+                    credentialsId: 'nexus',
+                    groupId: 'louay.devops.tn',
+                    nexusUrl: '35.180.21.137:8081/:8081',
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    repository: 'artifact',
+                    version: "0.0.1-$BUILD_NUMBER"
+                }
+            }
+        }
+    
 
         /* Uncomment if needed for decryption
         stage("Decrypt Dockerfile") {
