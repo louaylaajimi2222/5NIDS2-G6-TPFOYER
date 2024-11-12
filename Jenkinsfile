@@ -81,7 +81,7 @@ pipeline {
                     nexusUrl: '52.47.140.147:8081',
                     nexusVersion: 'nexus3',
                     protocol: 'http',
-                    repository: 'artifact',
+                    repository: 'rr',
                     version: "0.0.1-$BUILD_NUMBER"
                 }
             }
