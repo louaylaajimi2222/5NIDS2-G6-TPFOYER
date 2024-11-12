@@ -19,6 +19,8 @@ pipeline {
                 sh 'mvn package -DskipTests'
             }
         }
+        
+        
     /*      
     stage("Sonar") {
             steps {
@@ -63,6 +65,14 @@ pipeline {
                 sh 'docker-compose up -d'
             }
         }
+    stage('Monitoring') { 
+            steps {
+                echo 'Starting grafana + promotheus...'
+                sh 'docker stop prometheus grafana'
+                sh 'docker start prometheus grafana'
+            }
+        }
+        
 
         
         
