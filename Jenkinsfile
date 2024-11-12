@@ -7,7 +7,7 @@ pipeline {
         NEXUS_URL = '192.168.50.4:8081'             // Nexus URL
         NEXUS_REPOSITORY = '5nids2-G6-tp_foyer'                // Nexus Repository for Maven Releases
         NEXUS_CREDENTIAL_ID = 'nexus'                        // Nexus Credentials ID
-        }
+     }
     stages {
         stage('Checkout GIT') {
             steps {
