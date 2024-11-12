@@ -13,7 +13,13 @@ pipeline {
                 sh "mvn clean install"
             }
         }
-          
+        stage('Packaging') { 
+            steps {
+                echo 'Packaging...'
+                sh 'mvn package -DskipTests'
+            }
+        }
+    /*      
     stage("Sonar") {
             steps {
                 script {
@@ -36,7 +42,7 @@ pipeline {
                 sh 'mvn package -DskipTests'
             }
         }
-/*
+
         stage('Deploying') { 
             steps {
                 echo 'Deploying...'
