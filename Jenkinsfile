@@ -96,8 +96,8 @@ pipeline {
         }
     }
     post {
-         always {
-                emailext(
+        always {
+            emailext(
                     subject: "Jenkins Build Notification: ${currentBuild.fullDisplayName}",
                     body: """
                         <p>Build ${currentBuild.fullDisplayName} finished with status: ${currentBuild.currentResult}</p>
@@ -110,7 +110,7 @@ pipeline {
                     smtpUsername: 'azaroui86@gmail.com',
                     smtpPassword: 'rjvbydrxccufuujz',
                     smtpTLS: true
-                )
-         }
+            )
+        }
     }
 }
