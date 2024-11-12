@@ -11,9 +11,7 @@ pipeline {
     stages {
         stage("Git Clone") {
             steps {
-                git branch: 'main',
-                    credentialsId: 'gitlab',
-                    url: 'git@gitlab.com:devops4392533/projet_5eme.git'
+                git branch: 'louay', url: 'https://github.com/louaylaajimi2222/5NIDS2-G6-TPFOYER.git'
             }
         }
 
