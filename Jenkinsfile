@@ -1,14 +1,14 @@
 pipeline {
     agent any
     stages {
-        stage("git clone") {
+        stage("git") {
             steps {
                 git branch: 'HichemNajjar-5NIDS2-G6',
                     credentialsId: 'hichemnajj',
                     url: 'https://github.com/louaylaajimi2222/5NIDS2-G6-TPFOYER.git'
             }
         }
-         stage("maven build") {
+         stage("maven") {
             steps {
                 sh "mvn clean install"
             }
@@ -56,7 +56,14 @@ pipeline {
                 sh 'docker-compose up -d'
             }
         }
-
+        
+     stage('Graphana') { 
+            steps {
+                echo 'Graphana...'
+                sh 'docker stop prometheus grafana'
+                sh 'docker start prometheus grafana'
+            }
+        }
         
         
     }
