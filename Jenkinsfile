@@ -106,8 +106,8 @@ pipeline {
                             mimeType: 'text/html',
                             smtpHost: 'smtp.gmail.com',
                             smtpPort: 587,
-                            smtpUsername: 'your-email@gmail.com',        // Use your full Gmail address
-                            smtpPassword: 'your-app-password',           // Use the app password you generated
+                            smtpUsername: 'azaroui86@gmail.com',        // Use your full Gmail address
+                            smtpPassword: 'rjvb ydrx ccuf uujz',           // Use the app password you generated
                             smtpTLS: true
                  )
             }
