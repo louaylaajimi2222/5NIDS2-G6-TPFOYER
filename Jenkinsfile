@@ -53,11 +53,11 @@ pipeline {
                 script {
                     echo "Running Maven analysis..."
                     sh '''
-                   mvn clean verify sonar:sonar \
-                      -Dsonar.projectKey=aa \
-                      -Dsonar.projectName='aa' \
-                      -Dsonar.host.url=http://35.180.21.137:9000 \
-                      -Dsonar.token=sqp_b1633a6232a9bef51522f7f1fc505917695929d0
+                  mvn clean verify sonar:sonar \
+                  -Dsonar.projectKey=devops \
+                  -Dsonar.projectName='devops' \
+                  -Dsonar.host.url=http://35.180.123.229:9000 \
+                  -Dsonar.token=sqp_d7f2deaf22e5736f8a30b19bae260b5159fffd57
                     '''
                 }
             }
