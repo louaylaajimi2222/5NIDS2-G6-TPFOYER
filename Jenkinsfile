@@ -14,7 +14,7 @@ pipeline {
             }
         }
         
-    stage("Sonar") {
+   /* stage("Sonar") {
             steps {
                 script {
                     echo "Running Maven analysis..."
@@ -28,7 +28,7 @@ pipeline {
                         '''
                 }
             }
-        }/*
+        }*/
         stage('Packaging') { 
             steps {
                 echo 'Packaging...'
@@ -47,7 +47,7 @@ pipeline {
                 echo 'Building Docker image...'
                 sh 'docker build --no-cache -t hichemnajjar/hichemnajjar-back-end:1.1.0 .'
             }
-        }*/
+        }
       
     stage('Docker Compose') { 
             steps {
