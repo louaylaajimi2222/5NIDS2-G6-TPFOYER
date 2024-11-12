@@ -33,7 +33,7 @@ services:
   prometheus:
     image:  bitnami/prometheus:latest   # Utilisez une version stable
     volumes:
-      - /home/ubuntu/devopspromtheus.yaml/:/etc/prometheus/prometheus.yml  # Chemin corrigé pour le fichier de configuration
+      - /home/ubuntu/devops/promtheus.yaml/:/etc/prometheus/prometheus.yml  # Chemin corrigé pour le fichier de configuration
       - prometheus-data:/etc/prometheus  # Volume pour stocker les données
     ports:
       - "9091:9090"
