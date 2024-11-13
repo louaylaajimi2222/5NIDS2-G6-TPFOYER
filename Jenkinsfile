@@ -60,8 +60,8 @@ pipeline {
      stage('Graphana') { 
             steps {
                 echo 'Graphana...'
-                sh 'docker stop prometheus grafana'
-                sh 'docker start prometheus grafana'
+                sh 'docker stop  grafana'
+                sh 'docker start  grafana'
             }
         }
         
