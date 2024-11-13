@@ -34,20 +34,20 @@ pipeline {
                 echo 'Packaging...'
                 sh 'mvn package -DskipTests'
             }
-        }/*
+        }
 
         stage('Deploying') { 
             steps {
                 echo 'Deploying...'
                 sh 'mvn deploy -DskipTests'
             }
-        }*/
+        }/*
     stage('Building image') { 
             steps {
                 echo 'Building Docker image...'
                 sh 'docker build --no-cache -t hichemnajjar/hichemnajjar-back-end:1.1.0 .'
             }
-        }
+        }*/
       
     stage('Docker Compose') { 
             steps {
@@ -56,14 +56,14 @@ pipeline {
                 sh 'docker-compose up -d'
             }
         }
-        
+        /*
      stage('Graphana') { 
             steps {
                 echo 'Graphana...'
                 sh 'docker stop  grafana'
                 sh 'docker start  grafana'
             }
-        }
+        }*/
         
         
     }
