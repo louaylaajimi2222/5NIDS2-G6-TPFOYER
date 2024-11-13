@@ -46,7 +46,7 @@ pipeline {
             }
         }
 
-        stage("Sonar") {
+        /*stage("Sonar") {
             steps {
                 script {
                     echo "Running Maven analysis..."
@@ -59,7 +59,7 @@ pipeline {
                     '''
                 }
             }
-        }
+        }*/
         stage('Mockito Tests') {
             steps {
                 sh 'mvn test -DargLine="-javaagent:target/jacoco-agent.jar=destfile=target/jacoco.exec"'
@@ -67,7 +67,7 @@ pipeline {
         }
 
 
-       stage("NEXUS") {
+       /*stage("NEXUS") {
             steps {
                 script {
                     nexusArtifactUploader artifacts: [[
@@ -85,7 +85,7 @@ pipeline {
                     version: "0.0.1-$BUILD_NUMBER"
                 }
             }
-        }
+        }*/
     
 
         
