@@ -5,7 +5,7 @@ pipeline {
        
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
         
-        /*SONAR = credentials('sonar')/*
+        
     }
 
     stages {
