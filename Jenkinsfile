@@ -3,7 +3,7 @@ pipeline {
 
     environment {
        
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+        DOCKERHUB_CREDENTIALS = credentials('dockerhubs')
         SONAR_CREDENTIALS = credentials('sonar')
         
         
