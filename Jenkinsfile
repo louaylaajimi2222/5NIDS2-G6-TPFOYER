@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+       
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+    }
     stages {
         stage("git") {
             steps {
@@ -48,7 +52,11 @@ pipeline {
                 sh 'docker build --no-cache -t hichemnajjar/hichemnajjar-back-end:1.1.0 .'
             }
         }  
-
+ stage("DOCKER LOGIN") {
+            steps {
+                sh "echo \$DOCKERHUB_CREDENTIALS_PSW | docker login -u \$DOCKERHUB_CREDENTIALS_USR --password-stdin"
+            }
+        }
          stage("DOCKER HUB PUSH") {
             steps {
                 sh "docker push hichemnajjar/hichemnajjar-back-end:1.1.0 "
