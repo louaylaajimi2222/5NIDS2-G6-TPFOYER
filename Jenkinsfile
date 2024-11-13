@@ -4,6 +4,7 @@ pipeline {
     environment {
        
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+        SONAR_CREDENTIALS = credentials('sonar')
         
         
     }
@@ -46,20 +47,20 @@ pipeline {
             }
         }
 
-        /* stage("Sonar") {
+       stage("Sonar") {
             steps {
                 script {
                     echo "Running Maven analysis..."
                     sh '''
-                  mvn clean verify sonar:sonar \
-                  -Dsonar.projectKey=devops \
-                  -Dsonar.projectName='devops' \
-                  -Dsonar.host.url=http://52.47.140.147:9000 \
-                  -Dsonar.token=sqp_d4e843d229fa3d999ae36aaa58b2916a6928d7df
+                 mvn clean verify sonar:sonar \
+                  -Dsonar.projectKey=devsecops \
+                  -Dsonar.projectName='devsecops' \
+                  -Dsonar.host.url=http://192.168.179.130:9000 \
+                  -Dsonar.token=sqp_8815bb0338a34a3ea81d7a15cd05d3ed346d073a
                     '''
                 }
             }
-        }*/
+        }
         stage('Mockito Tests') {
             steps {
                 sh 'mvn test -DargLine="-javaagent:target/jacoco-agent.jar=destfile=target/jacoco.exec"'
