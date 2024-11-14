@@ -35,19 +35,9 @@ services:
   
  
 
-  grafana:
-    image: grafana/grafana
-    ports:
-      - "3001:3000"
-    networks:
-      - my-network
-    environment:
-      GF_SECURITY_ADMIN_PASSWORD: admin  # Correction de la syntaxe
+ 
 
 networks:
   my-network:
     driver: bridge
 
-volumes:
-  data_mysql:
-  prometheus-data:  # Volume pour les données de Prometheus
