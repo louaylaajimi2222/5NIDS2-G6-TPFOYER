@@ -36,7 +36,7 @@ services:
       - /home/ubuntu/devops/prometheus.yaml:/etc/prometheus/prometheus.yml  # Chemin corrigé pour le fichier de configuration
       - prometheus-data:/etc/prometheus  # Volume pour stocker les données
     ports:
-      - "9090:9090"
+      - "9091:9090"
     networks:
       - my-network
 
