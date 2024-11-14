@@ -1,56 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.example</groupId> <!-- Replace with your actual groupId -->
-    <artifactId>my-project</artifactId> <!-- Replace with your actual artifactId -->
-    <version>1.0-SNAPSHOT</version> <!-- Replace with your actual version -->
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements. See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership. The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
 
-    <properties>
-        <!-- Define properties here if needed -->
-    </properties>
+    http://www.apache.org/licenses/LICENSE-2.0
 
-    <dependencies>
-        <!-- Add project dependencies here -->
-    </dependencies>
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied. See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
 
-    <build>
-        <plugins>
-            <!-- Add build plugins here -->
-        </plugins>
-    </build>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
 
-    <profiles>
-        <profile>
-            <id>jdk-1.4</id>
-            <activation>
-                <jdk>1.4</jdk>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>jdk14</id>
-                    <name>Repository for JDK 1.4 builds</name>
-                    <url>http://www.myhost.com/maven/jdk14</url>
-                    <layout>default</layout>
-                    <!-- Removed snapshotPolicy as it's invalid -->
-                </repository>
-            </repositories>
-        </profile>
+  <!-- localRepository
+   | The path to the local repository maven will use to store artifacts.
+   |
+   | Default: ${user.home}/.m2/repository
+   -->
+  <!-- <localRepository>/path/to/local/repo</localRepository> -->
 
-        <profile>
-            <id>env-dev</id>
-            <activation>
-                <property>
-                    <name>target-env</name>
-                    <value>dev</value>
-                </property>
-            </activation>
-            <properties>
-                <tomcatPath>/path/to/tomcat/instance</tomcatPath>
-            </properties>
-        </profile>
-    </profiles>
+  <!-- interactiveMode
+   | Determines whether Maven prompts for input.
+   |
+   | Default: true
+   -->
+  <!-- <interactiveMode>true</interactiveMode> -->
 
-</project>
+  <!-- offline
+   | Determines whether Maven connects to the network.
+   |
+   | Default: false
+   -->
+  <!-- <offline>false</offline> -->
+
+  <!-- pluginGroups
+   | Additional group identifiers for plugin lookup.
+   -->
+  <pluginGroups>
+    <!-- <pluginGroup>com.your.plugins</pluginGroup> -->
+  </pluginGroups>
+
+  <!-- proxies
+   | List of proxies for network connections.
+   -->
+  <proxies>
+    <!--
+    <proxy>
+      <id>optional</id>
+      <active>true</active>
+      <protocol>http</protocol>
+      <username>proxyuser</username>
+      <password>proxypass</password>
+      <host>proxy.host.net</host>
+      <port>80</port>
+      <nonProxyHosts>local.net|some.host.com</nonProxyHosts>
+    </proxy>
+    -->
+  </proxies>
+
+  <!-- servers
+   | Authentication profiles for connecting to remote servers.
+   -->
+  <servers>
+    <server>
+      <id>deploymentRepo</id>
+      <username>admin</username>
+      <password>83849454-3e82-4eef-b56d-dd613ca1b8b3</password>
+    </server>
+    <!--
+    <server>
+      <id>siteServer</id>
+      <privateKey>/path/to/private/key</privateKey>
+      <passphrase>optional; leave empty if not used.</passphrase>
+    </server>
+    -->
+  </servers>
+
+  <!-- mirrors
+   | List of mirrors for downloading artifacts.
+   -->
+  <mirrors>
+    <!--
+    <mirror>
+      <id>mirrorId</id>
+      <mirrorOf>repositoryId</mirrorOf>
+      <name>Human Readable Name for this Mirror.</name>
+      <url>http://my.repository.com/repo/path</url>
+    </mirror>
+    -->
+  </mirrors>
+
+  <!-- profiles
+   | Profiles that can modify the build process.
+   -->
+  <profiles>
+    <!-- Example profile -->
+    <profile>
+      <id>jdk-1.4</id>
+      <activation>
+        <jdk>1.4</jdk>
+      </activation>
+      <repositories>
+        <repository>
+          <id>jdk14</id>
+          <name>Repository for JDK 1.4 builds</name>
+          <url>http://www.myhost.com/maven/jdk14</url>
+          <layout>default</layout>
+          <!-- Remove snapshotPolicy if present; it's invalid in settings.xml -->
+        </repository>
+      </repositories>
+    </profile>
+    
+    <profile>
+      <id>env-dev</id>
+      <activation>
+        <property>
+          <name>target-env</name>
+          <value>dev</value>
+        </property>
+      </activation>
+      <properties>
+        <tomcatPath>/path/to/tomcat/instance</tomcatPath>
+      </properties>
+    </profile>
+  </profiles>
+
+  <!-- activeProfiles
+   | Profiles that are active for all builds.
+   -->
+  <!--
+  <activeProfiles>
+    <activeProfile>alwaysActiveProfile</activeProfile>
+    <activeProfile>anotherAlwaysActiveProfile</activeProfile>
+  </activeProfiles>
+  -->
+
+</settings>
