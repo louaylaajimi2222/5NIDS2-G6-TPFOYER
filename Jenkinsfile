@@ -102,17 +102,17 @@ pipeline {
             }
         }*/
 
-        stage("DOCKER LOGIN") {
+       /* stage("DOCKER LOGIN") {
             steps {
                 sh "echo \$DOCKERHUB_CREDENTIALS_PSW | docker login -u \$DOCKERHUB_CREDENTIALS_USR --password-stdin"
             }
-        }
+        }*/
 
-        stage("DOCKER HUB PUSH") {
+       /* stage("DOCKER HUB PUSH") {
             steps {
                 sh "docker push louay222/fy:9.0.0"
             }
-        }
+        } /*
 
         stage("DOCKER-COMPOSE") {
             steps {
