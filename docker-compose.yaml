@@ -18,7 +18,7 @@ services:
     depends_on:
       - db
     ports:
-      - "8089:8089"
+      - "8088:8089"
     environment:
       SPRING_APPLICATION_JSON: '{
         "spring.datasource.url": "jdbc:mysql://db:3306/student?createDatabaseIfNotExist=true",
