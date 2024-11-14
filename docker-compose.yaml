@@ -33,7 +33,8 @@ services:
 
 
   
- 
+ volumes:
+  data_mysql:
 
  
 
