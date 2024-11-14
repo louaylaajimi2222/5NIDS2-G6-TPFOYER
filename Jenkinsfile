@@ -62,5 +62,10 @@ pipeline {
                 sh "docker build -t louay222/fy:9.0.0 ."
             }
         }
+         stage("DOCKER-COMPOSE") {
+            steps {
+                sh "docker-compose up -d"
+            }
+        }
     }
 }
