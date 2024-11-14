@@ -2,11 +2,8 @@ pipeline {
     agent any
 
     environment {
-       
         DOCKERHUB_CREDENTIALS = credentials('dockerhubs')
         SONAR_CREDENTIALS = credentials('sonars')
-        
-        
     }
 
     stages {
@@ -15,12 +12,6 @@ pipeline {
                 git branch: 'louay', url: 'https://github.com/louaylaajimi2222/5NIDS2-G6-TPFOYER.git'
             }
         }
-
-       /* stage("Pre-commit Check") { // Uncomment the following stage if needed
-            steps {
-                sh "pre-commit run --all-files"
-            }
-        }*/
 
         stage("Maven Build") {
             steps {
@@ -31,13 +22,11 @@ pipeline {
         stage("Cleanup Previous Build") {
             steps {
                 script {
-                    // Remove the previous build container if it exists
                     sh """
                     if [ \$(docker ps -a -q -f name=myappjava_${BUILD_NUMBER - 1}) ]; then
                         docker rm -f myappjava_${BUILD_NUMBER - 1}
                     fi
                     """
-                    // Remove the previous Docker image if it exists
                     sh """
                     if [ \$(docker images -q louay222/jenkinsdock_${BUILD_NUMBER - 1}) ]; then
                         docker rmi -f louay222/jenkinsdock_${BUILD_NUMBER - 1}
@@ -47,76 +36,30 @@ pipeline {
             }
         }
 
-       stage("Sonar") {
+        stage("Sonar") {
             steps {
                 script {
                     echo "Running Maven analysis..."
                     sh '''
-                mvn clean verify sonar:sonar \
-                  -Dsonar.projectKey=devsecopss \
-                  -Dsonar.projectName='devsecopss' \
-                  -Dsonar.host.url=http://192.168.179.130:9000 \
-                  -Dsonar.token=sqp_f5a605ea354b96426dfdf352a1ca64b08c93e454
+                    mvn clean verify sonar:sonar \
+                      -Dsonar.projectKey=devsecopss \
+                      -Dsonar.projectName='devsecopss' \
+                      -Dsonar.host.url=http://192.168.179.130:9000 \
+                      -Dsonar.token=sqp_f5a605ea354b96426dfdf352a1ca64b08c93e454
                     '''
                 }
             }
         }
+
         stage('Mockito Tests') {
             steps {
                 sh 'mvn test -DargLine="-javaagent:target/jacoco-agent.jar=destfile=target/jacoco.exec"'
             }
         }
 
-
-       /*stage("NEXUS") {
-            steps {
-                script {
-                    nexusArtifactUploader artifacts: [[
-                        artifactId: 'tp-foyer',
-                        classifier: '',
-                        file: 'target/tp-foyer-5.0.0.jar',
-                        type: 'jar'
-                    ]],
-                    credentialsId: 'nexus',
-                    groupId: 'louay.devops.tn',
-                    nexusUrl: '52.47.140.147:8081',
-                    nexusVersion: 'nexus3',
-                    protocol: 'http',
-                    repository: 'rr',
-                    version: "0.0.1-$BUILD_NUMBER"
-                }
-            }
-        }*/
-    
-
-        
-
         stage("DOCKER IMAGE") {
             steps {
-                sh " docker build -t louay222/fy:9.0.0 ."
-            }
-        }
-         /*stage("trivy scan ") {
-            steps {
-                sh "trivy image --scanners vuln louay222/fy:9.0.0 "
-            }
-        }*/
-
-       /* stage("DOCKER LOGIN") {
-            steps {
-                sh "echo \$DOCKERHUB_CREDENTIALS_PSW | docker login -u \$DOCKERHUB_CREDENTIALS_USR --password-stdin"
-            }
-        }*/
-
-       /* stage("DOCKER HUB PUSH") {
-            steps {
-                sh "docker push louay222/fy:9.0.0"
-            }
-        } /*
-
-        stage("DOCKER-COMPOSE") {
-            steps {
-                sh "docker-compose up -d"
+                sh "docker build -t louay222/fy:9.0.0 ."
             }
         }
     }
