@@ -30,24 +30,7 @@ services:
     networks:
       - my-network
 
-  prometheus:
-    image:  bitnami/prometheus:latest   # Utilisez une version stable
-    volumes:
-      - /home/ubuntu/devops/prometheus.yaml:/etc/prometheus/prometheus.yml  # Chemin corrigé pour le fichier de configuration
-      - prometheus-data:/etc/prometheus  # Volume pour stocker les données
-    ports:
-      - "9091:9090"
-    networks:
-      - my-network
-
-  grafana:
-    image: grafana/grafana
-    ports:
-      - "3001:3000"
-    networks:
-      - my-network
-    environment:
-      GF_SECURITY_ADMIN_PASSWORD: admin  # Correction de la syntaxe
+ 
 
 networks:
   my-network:
@@ -55,4 +38,4 @@ networks:
 
 volumes:
   data_mysql:
-  prometheus-data:  # Volume pour les données de Prometheus
+  
