@@ -1,3 +1,5 @@
+version: '3.8'  # Ajoutez la version du fichier compose
+
 services:
   db:
     image: mysql:latest
@@ -30,15 +32,9 @@ services:
     networks:
       - my-network
 
-
-
-  
- volumes:
+volumes:
   data_mysql:
-
- 
 
 networks:
   my-network:
     driver: bridge
-
