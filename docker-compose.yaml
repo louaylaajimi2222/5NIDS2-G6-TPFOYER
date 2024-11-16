@@ -1,3 +1,5 @@
+version: '3.8'  # Specify the version of the Docker Compose file
+
 services:
   db:
     image: mysql:latest
@@ -14,7 +16,7 @@ services:
       - my-network
 
   app:
-    image: louay222/fy:9.0.0  # Remplacez par le nom de votre image Spring Boot
+    image: louay222/fy:9.0.0  # Replace with your Spring Boot image name
     depends_on:
       - db
     ports:
@@ -30,12 +32,9 @@ services:
     networks:
       - my-network
 
- 
-
 networks:
   my-network:
     driver: bridge
 
 volumes:
-  data_mysql:
-  
+  data_mysql: {}
