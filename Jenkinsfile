@@ -62,6 +62,21 @@ pipeline {
                 sh "docker build -t louay222/fy:9.0.0 ."
             }
         }
+        stage('Scan with Trivy') {
+            steps {
+                script {
+                    // Scanner l'image Docker avec Trivy
+                    def result = sh(script: 'trivy image louay222/fy:9.0.0', returnStatus: true)
+                    
+                    // Vérifier le code de retour de Trivy
+                    if (result != 0) {
+                        error("Vulnerability scan failed. Trivy found vulnerabilities in the image.")
+                    } else {
+                        echo "No vulnerabilities found in the image."
+                    }
+                }
+            }
+        }
 
         stage("DOCKER-COMPOSE") {
             steps {
