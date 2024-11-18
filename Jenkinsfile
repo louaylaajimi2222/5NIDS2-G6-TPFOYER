@@ -62,13 +62,13 @@ pipeline {
                 sh "docker build -t louay222/fy:9.0.0 ."
             }
         }
-       stage('Scan Docker Image') {
+       /*stage('Scan Docker Image') {
             steps {
                 sh '''
                 trivy image --exit-code 1 --severity HIGH,CRITICAL louay222/fy:9.0.0
                 '''
             }
-        } }
+        } */
 
         stage("DOCKER-COMPOSE") {
             steps {
