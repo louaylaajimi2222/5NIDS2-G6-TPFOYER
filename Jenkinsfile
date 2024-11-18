@@ -38,7 +38,7 @@ pipeline {
                     sh '''
                     docker run --rm \
                         -v /var/run/docker.sock:/var/run/docker.sock \
-                        aquasec/trivy image --no-secret hichemnajjar/hichemnajjar-back-end:1.1.0
+                        aquasec/trivy image --no-progress --skip-update hichemnajjar/hichemnajjar-back-end:1.1.0
                     '''
                 }
             }
