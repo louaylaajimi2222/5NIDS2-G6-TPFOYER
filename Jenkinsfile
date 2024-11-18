@@ -11,7 +11,7 @@ pipeline {
         }
          stage("maven") {
             steps {
-                sh "mvn clean install"
+                sh "mvn clean install jacoco:report"
             }
         }
      /*   
@@ -68,5 +68,17 @@ pipeline {
         }
         
         
+    } post {
+        success {
+            // Publish JaCoCo coverage report
+            jacoco(execPattern: '**/target/jacoco.exec', 
+                   classPattern: '**/target/classes', 
+                   sourcePattern: '**/src/main/java', 
+                   exclusionPattern: '')
+        }
+        always {
+            // Optional: Cleanup or notification actions
+            echo 'Build completed.'
+        }
     }
 }
