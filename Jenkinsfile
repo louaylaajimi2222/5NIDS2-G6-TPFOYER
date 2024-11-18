@@ -26,7 +26,23 @@ pipeline {
                 echo 'Building Docker image...'
                 sh 'docker build --no-cache -t hichemnajjar/hichemnajjar-back-end:1.1.0 .'
             }
-        }  
+        }
+        stage('Trivy Scan') {
+            steps {
+                script {
+                    echo 'Running Trivy vulnerability scan...'
+                    // Pull Trivy image
+                    sh 'docker pull aquasec/trivy'
+
+                    // Run Trivy scan on the Docker image
+                    sh '''
+                    docker run --rm \
+                        -v /var/run/docker.sock:/var/run/docker.sock \
+                        aquasec/trivy image hichemnajjar/hichemnajjar-back-end:1.1.0
+                    '''
+                }
+            }
+        }
         stage('Docker Compose') { 
             steps {
                 echo 'Starting Docker Compose...'
@@ -37,8 +53,8 @@ pipeline {
         stage('Graphana') { 
             steps {
                 echo 'Graphana...'
-                sh 'docker stop  grafana'
-                sh 'docker start  grafana'
+                sh 'docker stop grafana'
+                sh 'docker start grafana'
             }
         }
     }
