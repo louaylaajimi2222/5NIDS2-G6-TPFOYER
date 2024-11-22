@@ -18,7 +18,7 @@ services:
       resources:
         limits:
           cpus: '0.2'
-          memory: 200M
+          memory: 400M
 
   app:
     image: louay222/fy:9.0.0  # Replace with your Spring Boot image name
