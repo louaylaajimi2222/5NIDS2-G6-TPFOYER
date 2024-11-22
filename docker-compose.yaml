@@ -14,6 +14,11 @@ services:
       - data_mysql:/var/lib/mysql
     networks:
       - my-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 200M
 
   app:
     image: louay222/fy:9.0.0  # Replace with your Spring Boot image name
@@ -31,7 +36,11 @@ services:
       }'
     networks:
       - my-network
-
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 300M
 networks:
   my-network:
     driver: bridge
