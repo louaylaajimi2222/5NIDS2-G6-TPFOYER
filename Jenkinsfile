@@ -32,13 +32,13 @@ pipeline {
                 script {
                     echo 'Running Trivy vulnerability scan...'
                     // Pull Trivy image
-                    //sh 'docker pull aquasec/trivy'
+                    sh 'docker pull aquasec/trivy'
 
                     // Run Trivy scan on the Docker image
                     sh '''
                     docker run --rm \
                         -v /var/run/docker.sock:/var/run/docker.sock \
-                        aquasec/trivy image --no-progress hichemnajjar/hichemnajjar-back-end:1.1.0
+                        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image hichemnajjar/hichemnajjar-back-end:1.1.0
                     '''
                 }
             }
