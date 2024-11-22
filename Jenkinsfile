@@ -32,7 +32,7 @@ pipeline {
                 script {
                     echo 'Running Trivy vulnerability scan...'
                     // Pull Trivy image
-                    sh 'docker pull aquasec/trivy'
+                    //sh 'docker pull aquasec/trivy'
 
                     // Run Trivy scan on the Docker image
                     sh '''
