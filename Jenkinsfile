@@ -29,7 +29,7 @@ pipeline {
                         '''
                 }
             }
-        }
+        }   */
     stage("Trivy Security Scan") {
             steps {
                 script {
@@ -41,7 +41,7 @@ pipeline {
                 }
             }
         }
-   */
+
         stage('Packaging') { 
             steps {
                 echo 'Packaging...'
