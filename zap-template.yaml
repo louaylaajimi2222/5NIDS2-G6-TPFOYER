@@ -1,0 +1,11 @@
+cat zap-template.yaml 
+env:                                      
+  contexts:                              
+    - name: context                      
+      urls:
+      -  http://192.168.179.130:8088/tpfoyer/swagger-ui/index.html#/universite-rest-controller/modifyUniversite  
+jobs:
+  - type: spider
+  - type: report
+    parameters:
+      reportDir: /home/louay/5NIDS2-G6-TPFOYER/zapss/zap_out.json
