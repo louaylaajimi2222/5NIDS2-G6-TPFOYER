@@ -67,7 +67,7 @@ pipeline {
             steps {
                 script {
                     // Run OWASP ZAP in daemon mode on port 8080 using the stable image
-                    sh 'docker run --rm zaproxy/zap-stable zap.sh -daemon -host 192.168.33.10 -port 8080'
+                    sh 'docker run --rm zaproxy/zap-stable zap.sh -daemon -host 192.168.33.10 -port 8080 -report /zap/zap-report.html'
                 }
             }
         }
