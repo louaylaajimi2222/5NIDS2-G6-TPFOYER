@@ -43,7 +43,7 @@ pipeline {
                 }
             }
         }
-        stage('Docker Compose') { hichemnajjar/hichemnajjar-back-end:1.1.0
+        stage('Docker Compose') { 
             steps {
                 echo 'Starting Docker Compose...'
                 sh 'docker-compose down -v'
