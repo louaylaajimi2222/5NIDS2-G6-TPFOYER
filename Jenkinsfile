@@ -62,7 +62,7 @@ pipeline {
             }
         }
      */
-    stages {
+ 
         stage('Run OWASP ZAP') {
             steps {
                 script {
