@@ -13,12 +13,6 @@ pipeline {
                 sh "mvn clean install"
             }
         }
-        stage('Packaging') { 
-            steps {
-                echo 'Packaging...'
-                sh 'mvn package -DskipTests'
-            }
-        }
         
       /*
     stage("Sonar") {
