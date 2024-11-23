@@ -62,14 +62,19 @@ pipeline {
                 sh "docker build -t louay222/fy:9.0.0 ."
             }
         }
-       stage('Scan Docker Image') {
+       /*stage('Scan Docker Image') {
             steps {
                 sh '''
                trivy  image  --db-repository public.ecr.aws/aquasecurity/trivy-db --java-db-repository public.ecr.aws/aquasecurity/trivy-java-db --scanners vuln  --timeout=15m louay222/fy:9.0.0
 
                 '''
             }
-        } 
+        } */
+            stage("DOCKER-COMPOSE") {
+            steps {
+                sh " docker run -u zap -v /home/louay/5NIDS2-G6-TPFOYER/zap-template.yaml:/home/zap/automation-config.yaml -v /home/louay/5NIDS2-G6-TPFOYER/zapss:/home/zap/reports -i ghcr.io/zaproxy/zaproxy:stable zap.sh -cmd -autorun /home/zap/automation-config.yaml"
+            }
+        }
 
         stage("DOCKER-COMPOSE") {
             steps {
