@@ -29,11 +29,23 @@ pipeline {
                         '''
                 }
             }
-        }   
-    stage("Trivy Security Scan") {
+        }  */ 
+
+
+
+ 
+        stage('Owasp Zap') {
             steps {
                 script {
-                    echo "Running Trivy Security Scan..."
+                    echo "Running Owasp Zap Scan ..."
+                    sh 'docker run --rm zaproxy/zap-stable zap.sh -daemon -host 192.168.33.10 -port 8080 '
+                }
+            }
+        }
+            stage("Trivy Security Scan") {
+            steps {
+                script {
+                    echo "Running Trivy Security Scan ..."
                     sh '''
                     trivy image --exit-code 1 --severity HIGH \
                     youssefhessine/youssefhessine-back-end:1.1.0 || true
@@ -41,7 +53,15 @@ pipeline {
                 }
             }
         }
-*/
+        
+            
+    stage('Docker Compose') { 
+            steps {
+                echo 'Starting Docker Compose...'
+                sh 'docker-compose down -v'
+                sh 'docker-compose up -d'
+            }
+        }
         stage('Packaging') { 
             steps {
                 echo 'Packaging...'
@@ -62,23 +82,10 @@ pipeline {
             }
         }
      */
- 
-        stage('Run OWASP ZAP') {
-            steps {
-                script {
-                    // Run OWASP ZAP in daemon mode on port 8080 using the stable image
-                    sh 'docker run --rm zaproxy/zap-stable zap.sh -daemon -host 192.168.33.10 -port 8080 -report /zap/zap-report.html'
-                }
-            }
-        }
-            
-    stage('Docker Compose') { 
-            steps {
-                echo 'Starting Docker Compose...'
-                sh 'docker-compose down -v'
-                sh 'docker-compose up -d'
-            }
-        }
+
+
+
+        
     stage('Monitoring') { 
             steps {
                 echo 'Starting grafana + promotheus...'
