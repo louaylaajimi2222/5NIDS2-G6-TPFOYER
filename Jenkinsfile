@@ -46,7 +46,8 @@ pipeline {
 stage('SQLMap Test') {
            steps {
                sh '''
-                   sqlmap -u http://192.168.56.10:8089/tpfoyer/foyer/add-foyer --batch --risk=3 --level=5 --data '{"nomFoyer":"Test Foyer", "capaciteFoyer":"5"}' --dbs
+                   sqlmap -u http://192.168.50.4:8089/tpfoyer/foyer/add-foyer --batch --risk=3 --level=5 --data '{"nomFoyer":"Test Foyer", "capaciteFoyer":"5"}' --dbs --output-dir=~/sqlmap_logs
+
                '''
            }
        }
