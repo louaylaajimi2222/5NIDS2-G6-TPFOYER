@@ -65,7 +65,7 @@ pipeline {
        stage('Scan Docker Image') {
             steps {
                 sh '''
-               trivy  image  --db-repository public.ecr.aws/aquasecurity/trivy-db --java-db-repository public.ecr.aws/aquasecurity/trivy-java-db --scanners vuln  louay222/fy:9.0.0
+               trivy  image  --db-repository public.ecr.aws/aquasecurity/trivy-db --java-db-repository public.ecr.aws/aquasecurity/trivy-java-db --scanners vuln  --timeout=15m louay222/fy:9.0.0
 
                 '''
             }
