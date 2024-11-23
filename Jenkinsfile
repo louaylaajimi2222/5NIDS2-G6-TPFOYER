@@ -37,7 +37,7 @@ pipeline {
                 }
             }
         }*/
-    stage("Run Trivy Security Scan") {
+    stage("Trivy Security Scan") {
             steps {
                 script {
                     echo "Running Trivy Security Scan..."
@@ -61,7 +61,7 @@ pipeline {
                 echo 'Deploying...'
                 sh 'mvn deploy -DskipTests'
             }
-        }*/
+        }
     stage('Building image') { 
             steps {
                 echo 'Building Docker image...'
