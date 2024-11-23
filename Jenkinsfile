@@ -21,7 +21,7 @@ pipeline {
         }
         
         
-    /*      
+      /*
     stage("Sonar") {
             steps {
                 script {
@@ -30,10 +30,21 @@ pipeline {
                         mvn clean verify sonar:sonar \
                           -Dsonar.projectKey=DevOpsFinalTest \
                           -Dsonar.projectName='DevOpsFinalTest' \
-                          -Dsonar.host.url=http://192.168.1.9:9000 \
+                          -Dsonar.host.url=http://192.168.10.33:9000 \
                           -Dsonar.token=sqp_85f94326332c3ffc409e2bcb8be94f5aead33417
 
                         '''
+                }
+            }
+        }*/
+    stage("Run Trivy Security Scan") {
+            steps {
+                script {
+                    echo "Running Trivy Security Scan..."
+                    sh '''
+                    trivy image --exit-code 1 --severity HIGH \
+                    youssefhessine/youssefhessine-back-end:1.1.0 || true
+                    '''
                 }
             }
         }
