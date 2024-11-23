@@ -33,16 +33,17 @@ pipeline {
             }
         }*/
         stage("Trivy Security Scan") {
-            steps {
-                script {
-                    echo "Running Trivy Security Scan..."
-                    sh '''
-                    trivy image --exit-code 1 --severity HIGH \
-                    hichemnajjar/hichemnajjar-back-end:1.1.0 || true
-                    '''
-                }
-            }
+    steps {
+        script {
+            echo "Running Trivy Security Scan..."
+            sh '''
+            trivy image --exit-code 1 --severity HIGH --timeout 20m --scanners vuln \
+            hichemnajjar/hichemnajjar-back-end:1.1.0 || true
+            '''
         }
+    }
+}
+
         stage('Docker Compose') { 
             steps {
                 echo 'Starting Docker Compose...'
