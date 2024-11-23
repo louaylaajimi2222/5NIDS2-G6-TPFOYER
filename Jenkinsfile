@@ -32,7 +32,13 @@ pipeline {
         }  */ 
 
 
-
+    stage('SQLMap Test') {
+        steps {
+            sh '''
+                sqlmap -u http://192.168.33.10:8089/tpfoyer/foyer/add-foyer --batch --risk=3 --level=5 --data '{"nomFoyer":"Test Foyer", "capaciteFoyer":"5"}' --dbs
+            '''
+        }
+    }
  
         stage('Owasp Zap') {
             steps {
@@ -54,7 +60,7 @@ pipeline {
             }
         }
         
-            
+ 
     stage('Docker Compose') { 
             steps {
                 echo 'Starting Docker Compose...'
