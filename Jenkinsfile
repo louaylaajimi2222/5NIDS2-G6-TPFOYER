@@ -81,7 +81,7 @@ pipeline {
                     )
                     echo "ZAP Scan completed with status: ${zapStatus}"
                 }
-                sh "sudo cat /home/louay/5NIDS2-G6-TPFOYER/zapss/scan-report.html"
+                sh " cat /home/louay/5NIDS2-G6-TPFOYER/zapss/scan-report.html"
             }
         }
         
