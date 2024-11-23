@@ -37,9 +37,8 @@ pipeline {
         stage('Owasp Zap') {
             steps {
                 script {
-                    def zapOutputFile = 'zap_scan_output.txt'
                     echo "Running Owasp Zap Scan ..."
-                    sh 'docker run --rm zaproxy/zap-stable zap.sh -daemon -host 192.168.33.10 -port 8080 > $zapOutputFile '
+                    sh 'docker run --rm zaproxy/zap-stable zap.sh -daemon -host 192.168.33.10 -port 8080 > ZapOutPutReport.txt '
                 }
             }
         }
