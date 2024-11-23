@@ -15,6 +15,11 @@ pipeline {
                 sh "mvn clean install jacoco:report"
             }
         }
+        /*stage('OWASP Dependency Vulnerability check'){
+            steps {
+                sh "mvn dependency-check:check -Dformats=XML,JSON,HTML"
+            }
+        }*/
         stage('Packaging') { 
             steps {
                 echo 'Packaging...'
