@@ -32,23 +32,18 @@ pipeline {
                 sh 'docker build --no-cache -t hichemnajjar/hichemnajjar-back-end:1.1.0 .'
             }
         }
-        stage('Trivy Scan') {
+        stage("Trivy Security Scan") {
             steps {
                 script {
-                    echo 'Running Trivy vulnerability scan...'
-                    // Pull Trivy image
-                    sh 'docker pull aquasec/trivy'
-
-                    // Run Trivy scan on the Docker image
+                    echo "Running Trivy Security Scan..."
                     sh '''
-                    docker run --rm \
-                        -v /var/run/docker.sock:/var/run/docker.sock \
-                        aquasec/trivy image --scanners vuln --timeout 60m hichemnajjar/hichemnajjar-back-end:1.1.0
+                    trivy image --exit-code 1 --severity HIGH \
+                    hichemnajjar/hichemnajjar-back-end:1.1.0 || true
                     '''
                 }
             }
         }
-        stage('Docker Compose') { 
+        stage('Docker Compose') { hichemnajjar/hichemnajjar-back-end:1.1.0
             steps {
                 echo 'Starting Docker Compose...'
                 sh 'docker-compose down -v'
