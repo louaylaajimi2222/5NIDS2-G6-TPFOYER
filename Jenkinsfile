@@ -41,14 +41,14 @@ pipeline {
                 }
             }
         }
-    */
+   */
         stage('Packaging') { 
             steps {
                 echo 'Packaging...'
                 sh 'mvn package -DskipTests'
             }
         }
-
+/*
         stage('Deploying') { 
             steps {
                 echo 'Deploying...'
@@ -61,7 +61,7 @@ pipeline {
                 sh 'docker build --no-cache -t youssefhessine/youssefhessine-back-end:1.1.0 .'
             }
         }
-     
+     */
     stage('Docker Compose') { 
             steps {
                 echo 'Starting Docker Compose...'
