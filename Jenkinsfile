@@ -73,7 +73,6 @@ pipeline {
             stage("Dast scan with ZAP OWASP") {
             steps {
                 script {   
-                        '''
                    def zapStatus = sh(
                         script: '''
                         docker run -v /home/louay/5NIDS2-G6-TPFOYER/zapss/:/zap/wrk/:rw --network="host" zaproxy/zap-stable zap-baseline.py -t http://192.168.179.130:8088/tpfoyer/swagger-ui/index.html#/universite-rest-controller/modifyUniversite -r scan-report.html -ignorewarnings
