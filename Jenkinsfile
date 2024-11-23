@@ -38,11 +38,11 @@ pipeline {
             steps {
                 script {
                     echo "Running Owasp Zap Scan ..."
-                    sh 'docker run --rm zaproxy/zap-stable zap.sh -daemon -host 192.168.33.10 -port 8080 > ZapOutPutReport.txt '
+                    sh 'docker run --rm zaproxy/zap-stable zap.sh -daemon -host 192.168.33.10 -port 8080 > /home/vagrant/ZapOutPutReport.txt '
                 }
             }
         }
-            stage("Trivy Security Scan") {
+            stage("Trivy Scan") {
             steps {
                 script {
                     echo "Running Trivy Security Scan ..."
