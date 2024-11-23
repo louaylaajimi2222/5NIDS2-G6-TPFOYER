@@ -62,6 +62,16 @@ pipeline {
             }
         }
      */
+    stages {
+        stage('Run OWASP ZAP') {
+            steps {
+                script {
+                    // Run OWASP ZAP in daemon mode on port 8080 using the stable image
+                    sh 'docker run --rm zaproxy/zap-stable zap.sh -daemon -host 192.168.33.10 -port 8080'
+                }
+            }
+        }
+            
     stage('Docker Compose') { 
             steps {
                 echo 'Starting Docker Compose...'
