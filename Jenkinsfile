@@ -25,13 +25,13 @@ pipeline {
                 echo 'Packaging...'
                 sh 'mvn package -DskipTests'
             }
-        }/*
+        }
         stage('Building image') { 
             steps {
                 echo 'Building Docker image...'
                 sh 'docker build --no-cache -t hichemnajjar/hichemnajjar-back-end:1.1.0 .'
             }
-        }
+        }/*
         stage("Trivy Security Scan") {
     steps {
         script {
