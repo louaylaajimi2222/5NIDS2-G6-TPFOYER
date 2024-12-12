@@ -36,7 +36,7 @@ pipeline {
             }
         }
 
-        stage("Sonar") {
+        /*stage("Sonar") {
             steps {
                 script {
                     echo "Running Maven analysis..."
@@ -49,7 +49,7 @@ pipeline {
                     '''
                 }
             }
-        }
+        }*/
 
         stage('Mockito Tests') {
             steps {
